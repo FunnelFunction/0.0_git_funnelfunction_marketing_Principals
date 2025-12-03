@@ -1,4 +1,4 @@
-# 0.0_git-Agentic-Arguments
+# 0.0_git_funnelfunction_marketing_Principals
 
 **The Mathematical Architecture of Autonomous Business Systems**
 
@@ -21,7 +21,7 @@ This is a **README of READMEs**—a living, extensible knowledge base for the ma
 ## Repository Structure
 
 ```
-0.0_git-Agentic-Arguments/
+0.0_git_funnelfunction_marketing_Principals/
 │
 ├── 0.1_Foundations_of_Sales/          # Universal principles & mathematical frameworks
 │   ├── 0.1.a_Autonomous_Decision_Systems/   # Bellman, bandits, policy gradients
