@@ -4,6 +4,8 @@
 
 By Armstrong Knight & Abdullah Khan | Funnel Function
 
+https://github.com/FunnelFunction/0.0_git_funnelfunction_marketing_Principals
+
 ---
 
 ## Repository Purpose
