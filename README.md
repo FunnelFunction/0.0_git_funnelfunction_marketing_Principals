@@ -85,6 +85,52 @@ That's the whole funnel. That's the whole company. That's Funnel Function.
 
 ---
 
+### The Instantaneous Kernel — Gemini's Formulation
+
+Inside our integral lives the **Gating Function 𝒜** — the instantaneous awareness at a single exposure:
+
+```
+                    B_{u,m,τ} · M_{u,m,τ} · S_{u,m,τ}
+𝒜_{u,m,t}(e)  =  ────────────────────────────────────────
+                   N_{m,τ} + L_{u,τ} + Θ_u + F + R + SQ
+```
+
+**Subscript Notation (Implementation-Ready):**
+
+| Subscript | Meaning | Why It Matters |
+|-----------|---------|----------------|
+| **u** | User | Each person has unique L (cognitive load) and Θ (threshold) |
+| **m** | Medium/Channel | TikTok noise ≠ YouTube noise ≠ TV noise |
+| **t** | Time index | Suppression changes by hour, day, season |
+| **e** | Exposure event | Which specific ad/creative triggered this computation |
+
+**The Hierarchical Relationship:**
+
+Gemini wrote the **microscope** (instantaneous physics).  
+We wrote the **telescope** (accumulated trajectory).
+
+```
+𝒜(e)      =  instantaneous awareness at one exposure (Gemini's kernel)
+              ↓
+         integrate over exposures
+              ↓
+         apply memory decay γ^t
+              ↓
+         gate by writability W(Φ,Ψ,ε)
+              ↓
+f(x)      =  accumulated conversion potential (Master Equation)
+```
+
+**The Unified Statement:**
+
+```
+f(x) = W(Φ,Ψ,ε) · γ^t · ∫₀ᵗ 𝒜_{u,m,τ}(e) dτ
+```
+
+Both equations see the same truth at different scales.
+
+---
+
 ### What This Means Operationally
 
 | If you want to... | Optimize... |
@@ -2052,4 +2098,5 @@ Creative Commons Attribution-NonCommercial 4.0 International License
 
 *Version 2.0 | December 2025*
 *Word count: ~12,000 | Equations: 50+ | Historical range: 1898-2025*
+
 
