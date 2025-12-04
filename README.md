@@ -26,40 +26,78 @@ Since E. St. Elmo Lewis invoked William James's psychology in 1898 to craft AIDA
 
 **We propose replacements.**
 
-The Funnel Function Master Equation
+
+---
+
+## The Funnel Function Master Equation
+
+```
                          t
                         ⌠   B(τ) · M(τ) · S(τ)
 f(x) = W(Φ,Ψ,ε) · γ^t · ⎮  ──────────────────── dτ
                         ⌡       Σ(τ)
                          0
+```
 
-Where:
-SymbolNameDefinitionW(Φ,Ψ,ε)Writability Gate1 if δ(Φ−Ψ) > ε, else 0 — Are they writable at all?B(τ)BodyS(sensory) → σ(somatic) — Physical signal accumulationM(τ)MindR(relevance) → π(prediction) — Cognitive model confidenceS(τ)SoulΠ(resonance) → Ι(identity) — Self-concept alignmentΣ(τ)SuppressionN + L + Θ + F + R + SQ — All friction, all noiseγ^tDecayMemory erosion over time∫dτAccumulationEvidence compounds across exposures
+**Where:**
 
-The Interpretation
-In plain English:
+| Symbol | Name | Definition |
+|--------|------|------------|
+| **W(Φ,Ψ,ε)** | Writability Gate | 1 if δ(Φ−Ψ) > ε, else 0 — *Are they writable at all?* |
+| **B(τ)** | Body | S(sensory) → σ(somatic) — *Physical signal accumulation* |
+| **M(τ)** | Mind | R(relevance) → π(prediction) — *Cognitive model confidence* |
+| **S(τ)** | Soul | Π(resonance) → Ι(identity) — *Self-concept alignment* |
+| **Σ(τ)** | Suppression | N + L + Θ + F + R + SQ — *All friction, all noise* |
+| **γ^t** | Decay | Memory erosion over time |
+| **∫dτ** | Accumulation | Evidence compounds across exposures |
 
-The probability of conversion equals the writability gate times the time-decayed integral of (Body × Mind × Soul) over total suppression.
+---
 
-The three laws embedded:
+### The Interpretation
 
-Multiplicative Numerator: Zero on ANY of Body, Mind, or Soul collapses the whole signal. It's an AND-gate.
-Additive Denominator: Suppressors accumulate independently. Any single source of friction can kill you.
-Gated by Writability: If intent doesn't align with offer (ΔΨ > ε), the integral is multiplied by zero. No amount of marketing fixes bad targeting.
+**In plain English:**
 
+> *The probability of conversion equals the writability gate times the time-decayed integral of (Body × Mind × Soul) over total suppression.*
 
-The Collapsed Form
+**The three laws embedded:**
+
+1. **Multiplicative Numerator:** Zero on ANY of Body, Mind, or Soul collapses the whole signal. It's an AND-gate.
+
+2. **Additive Denominator:** Suppressors accumulate independently. Any single source of friction can kill you.
+
+3. **Gated by Writability:** If intent doesn't align with offer (ΔΨ > ε), the integral is multiplied by zero. No amount of marketing fixes bad targeting.
+
+---
+
+### The Collapsed Form
+
 For those who want it even simpler:
+
+```
         B · M · S
 f(x) = ─────────── · W
             Σ
-Body times Mind times Soul, divided by Suppression, gated by Writability.
+```
+
+**Body times Mind times Soul, divided by Suppression, gated by Writability.**
+
 That's the whole funnel. That's the whole company. That's Funnel Function.
 
-What This Means Operationally
-If you want to...Optimize...Break through noise↑ B (sensory salience)Increase relevance↑ M (prediction error, intent match)Build "trust"↑ S (identity congruence, somatic evidence)Reduce friction↓ Σ (simplify, de-risk, reduce load)Stop wasting CPUW = 0 → don't process them at all
+---
 
-That's your north star equation.
+### What This Means Operationally
+
+| If you want to... | Optimize... |
+|-------------------|-------------|
+| Break through noise | ↑ B (sensory salience) |
+| Increase relevance | ↑ M (prediction error, intent match) |
+| Build "trust" | ↑ S (identity congruence, somatic evidence) |
+| Reduce friction | ↓ Σ (simplify, de-risk, reduce load) |
+| Stop wasting CPU | W = 0 → don't process them at all |
+
+**That's your north star equation.**
+
+---
 
 Every legacy term in this document is mapped to a mathematical function. Every function is decomposable into measurable variables. Every variable connects to either cognitive science (how brains work) or information theory (how signals propagate).
 
@@ -1642,3 +1680,4 @@ Creative Commons Attribution-NonCommercial 4.0 International License
 
 *Version 2.0 | December 2025*
 *Word count: ~12,000 | Equations: 50+ | Historical range: 1898-2025*
+
