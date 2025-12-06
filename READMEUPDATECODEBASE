@@ -1,4 +1,4 @@
-THE HARDCORE PLAN: Funnel Function → World Scientific Standard
+HE HARDCORE PLAN: Funnel Function → World Scientific Standard
 Principle: EXPAND EVERYTHING. REDUCE NOTHING. MAKE BOLD CLAIMS DEFENSIBLE.
 
 What You Already Have (This Is Exceptional)
@@ -266,3 +266,493 @@ PHASE 2: Complete Sales Funnel Layer (0.2.x)
 2.1 Write 0.2.a.i_f(Awareness)/README.md (60+ pages)
 Structure matching Body/Mind/Soul depth:
 
+# 0.2.a.i f(Awareness)
+
+## The Gating Function: Complete Mathematical and Theoretical Foundations
+
+### Part 1: Historical Evolution of Awareness Models
+
+#### 1.1 Pre-Scientific Era (1898-1956)
+- E. St. Elmo Lewis and the AIDA hierarchy
+- William James's attention psychology as source
+- "Awareness" as undefined black box
+
+#### 1.2 Information Theory Era (1948-1973)
+- Shannon (1948): C = B log₂(1 + S/N)
+- Miller (1956): 7±2 magical number
+- Broadbent (1958): Filter Model
+- Simon (1971): "A wealth of information creates a poverty of attention"
+- Kahneman (1973): Attention as limited resource
+
+#### 1.3 Signal Detection Era (1966-2000)
+- Green & Swets (1966): d' = z(HR) - z(FAR)
+- Itti & Koch (1998): Saliency mapping
+- Application to advertising effectiveness
+
+#### 1.4 Predictive Processing Era (2010-Present)
+- Friston (2010): Free Energy Principle
+- F = E_q[ln q(s) - ln p(s,o)]
+- Precision-weighted prediction error as relevance
+
+#### 1.5 Active Attention Era (2020-Present)
+- Nelson-Field (2020): 1.5s encoding threshold
+- Adelaide AU metric (2019-2025)
+- Lumen APM methodology
+
+### Part 2: The Gating Function Mathematics
+
+#### 2.1 The Core Equation
+$$\mathcal{A}_{u,m,t}(e) = \frac{\mathbf{S} \cdot \mathbf{R} \cdot \mathbf{\Pi}}{\mathbf{N} + \mathbf{L} + \mathbf{\Theta}}$$
+
+#### 2.2 Conversion to Probability
+$$P(\text{Awareness}) = \sigma(\alpha \cdot \mathcal{A} - \beta)$$
+
+#### 2.3 Calibration from Industry Data
+
+**Using Adelaide AU validation (2025 Outcomes Guide):**
+- 52 case studies across 18 industries
+- 41% average upper-funnel lift
+- 55% average lower-funnel lift
+
+**Calibration procedure:**
+1. Map AU score (0-100) to our S component
+2. Estimate R from intent match data
+3. Estimate Π from brand lift studies
+4. Fit α, β to match observed conversion probabilities
+
+#### 2.4 The 1.5-Second Threshold (Nelson-Field 2025)
+
+$$f_d(d) = 1 - e^{-\lambda_d \cdot d}$$
+
+Where λ_d ≈ 2.8 gives:
+- f_d(1.5s) ≈ 0.95 (95% encoding at threshold)
+- f_d(2.5s) ≈ 0.999 (diminishing returns beyond)
+
+**Key finding:** With distinctive brand assets, threshold drops to 1.5s from 2.5s.
+This represents a ~40% efficiency gain in attention investment.
+
+### Part 3: Sender Calculus (Optimization)
+
+#### 3.1 The Marginal Awareness Return
+$$\text{MAR}_X = \frac{\partial P(\text{Awareness})}{\partial \lambda_c} = \frac{\partial P}{\partial \mathcal{A}} \cdot \frac{\partial \mathcal{A}}{\partial X} \cdot \frac{\partial X}{\partial \lambda_c}$$
+
+#### 3.2 Budget Allocation via Lagrangian
+$$\mathcal{L} = \mathbb{E}[I_{u,b,T}] - \lambda_{\text{budget}} \cdot (B - \sum_c \lambda_c)$$
+
+#### 3.3 Channel Selection Given Noise Profiles
+$$\text{Optimal allocation} \propto \frac{\partial \mathcal{A}/\partial \lambda_c}{N_m^{\nu}}$$
+
+### Part 4: Receiver Calculus (Stochastic Experience)
+
+#### 4.1 The Integrated Activation Trace
+$$I_{u,b,T} = \sum_{t=0}^{T} \gamma^{T-t} \cdot \mathcal{A}_{u,m,t}(e_t)$$
+
+#### 4.2 Differential Form
+$$\frac{dI_{u,b,t}}{dt} = -\lambda_{\text{decay}} \cdot I_{u,b,t} + \beta \cdot \mathcal{A}_{u,m,t}(e)$$
+
+#### 4.3 Purchase Probability
+$$P(\text{Purchase}) = \sigma(\eta_0 + \eta_1 \cdot I + \eta_2 \cdot F + \eta_3 \cdot \Pi^{\text{identity}} + \zeta)$$
+
+### Part 5: Measurement Protocol
+
+#### 5.1 Body (S) Measurement
+- **Adelaide AU:** ML model scoring 0-100
+- **Lumen APM:** Eye-tracking seconds per 1000 impressions
+- **TVision:** Panel-based attention data
+
+#### 5.2 Mind (R) Measurement
+- **CEP Linkage:** Category Entry Points (Ehrenberg-Bass)
+- **Intent Match:** Semantic similarity to search queries
+- **Prediction Error:** A/B test of expected vs actual
+
+#### 5.3 Soul (Π) Measurement
+- **Brand Lift Studies:** Pre/post awareness and consideration
+- **Identity Alignment:** Survey-based psychographic match
+- **NLP Embeddings:** cos(brand_vector, customer_segment_vector)
+
+#### 5.4 Suppression (Σ) Measurement
+- **N:** Channel benchmarks from Lumen cross-media studies
+- **L:** Time-of-day, day-of-week, session depth proxies
+- **Θ:** Historical creative exposure frequency
+
+### Part 6: Integration with Master Equation
+
+$$f(x) = W(\Phi, \Psi, \varepsilon) \cdot \gamma^t \cdot \int_0^t \mathcal{A}_{u,m,\tau}(e) \, d\tau$$
+
+The Awareness function feeds directly into the Master Equation as the kernel being integrated.
+
+---
+
+## References
+
+[Full academic citation list with 50+ sources]
+
+2.2-2.6 Similar Treatment for:
+0.2.a.ii f(Lead_Generation): Capture mechanics, form friction, lead scoring mathematics
+0.2.b.i f(Nurturing): Drip calculus, behavioral triggers, decay-aware sequencing
+0.2.b.ii f(Qualification): BANT/MEDDIC formalization as W(x) approximations
+0.2.c.i f(Conversion): Full Prospect Theory treatment with λ ≈ 1.5-2.0 (updated from 2.25)
+0.2.c.ii f(Close): Threshold crossing mechanics, negotiation game theory
+PHASE 3: Complete Non-Funnel Models (0.3.x)
+Each needs expansion from ~40 lines to ~200+ lines with:
+
+Full mathematical derivation
+Connection to existing equation stack
+Implementation pseudocode
+Worked examples
+Validation methodology
+3.1 f(Recursive_Collapse) - Full Paper
+# 0.3.a f(Recursive_Collapse)
+
+## Field-Based Acquisition Architecture
+
+### Part 1: The Death of Stage-Gates
+
+Traditional funnels are linear loss machines:
+- Awareness → Interest → Decision → Action
+- Each stage bleeds ~80%: f(Conv) = L₀ · e^{-λn}
+
+**The Core Problem:** "How many do we lose?" is the wrong question.
+**The Replacement:** "Which ones collapse from the start?"
+
+### Part 2: The Collapse Probability Function
+
+$$P_{\text{collapse}}(x) = \exp\left(-\frac{(\Delta\Psi)^2}{2\sigma^2}\right)$$
+
+This is a Gaussian in ΔΨ space:
+- ΔΨ = 0: Perfect alignment, P = 1
+- ΔΨ = σ: One standard deviation, P = 0.606
+- ΔΨ = 2σ: Two standard deviations, P = 0.135
+
+### Part 3: Binary vs Gaussian Collapse Regimes
+
+#### f(Binary_Collapse): ΔΨ = 0 exactly
+```python
+if intent_matches_offer_exactly():
+    execute()
+# Used in: medical systems, legal compliance, regulatory
+
+f(Gaussian_Collapse): ΔΨ < ε
+if collapse_probability(delta_psi) > threshold:
+    execute()
+# Used in: AI preference systems, recommendation engines
+
+Part 4: Mathematical Derivation from First Principles
+Starting from the Writability Gate: $$W(x) = \delta(\Phi(x) - \Psi(x)) > \varepsilon$$
+
+Softening to Gaussian: $$W(x) = \exp\left(-\frac{|\Phi(x) - \Psi(x)|^2}{2\varepsilon^2}\right)$$
+
+This is equivalent to the collapse probability with σ = ε.
+
+Part 5: Connection to Quantum Mechanics Analogy
+The collapse function mirrors quantum measurement:
+
+Superposition = Customer in multiple intent states
+Measurement = Exposure event
+Collapse = Purchase decision
+$$|\psi\rangle_{\text{before}} = \sum_i c_i |i\rangle \rightarrow |\psi\rangle_{\text{after}} = |j\rangle$$
+
+The probability of collapsing to state j: $$P(j) = |c_j|^2 = |\langle j | \psi \rangle|^2$$
+
+In our framework: $$P(\text{collapse to purchase}) = |\langle \text{offer} | \text{intent} \rangle|^2 \approx \cos^2(\theta)$$
+
+Part 6: Implementation Architecture
+[Full pseudocode and system design]
+
+Part 7: Validation Protocol
+[How to test this against funnel models]
+
+
+---
+
+## PHASE 4: Measurement Protocols Layer (0.4.x NEW)
+
+**New directory:** `0.4_f(Measurement_Protocols)/`
+
+### 4.1 f(Body_Measurement) - Adelaide/Lumen Integration
+
+```markdown
+# 0.4.a f(Body_Measurement)
+
+## Operationalizing Sensory Strength (S)
+
+### Industry Standards
+
+| Metric | Provider | Methodology | Mapping to S |
+|--------|----------|-------------|--------------|
+| AU Score | Adelaide | ML model, 0-100 | S = AU/100 |
+| APM | Lumen | Eye-tracking seconds/1000 | S = APM/benchmark |
+| Active Attention | Amplified | Webcam eye-tracking | S = seconds/1.5 |
+| Viewability | MRC/IAB | 50% pixels, 1s+ | S multiplier |
+
+### The Nelson-Field Calibration
+
+From "Hacking the Attention Economy" (May 2025):
+- 1.5s active attention = memory encoding threshold
+- With distinctive assets: threshold drops by ~1 second
+- £66bn wasted globally from poor branding
+
+$$\mathbf{S} = \text{AU}_{\text{score}} \cdot \text{Viewability} \cdot f_d(\text{active\_attention})$$
+
+Where:
+$$f_d(d) = \begin{cases} 
+0 & d < 0.5s \\
+1 - e^{-2.8(d-0.5)} & d \geq 0.5s
+\end{cases}$$
+
+### API Integration Specifications
+
+[Adelaide API, Lumen API, TVision integration code]
+
+4.2-4.5 Similar for Mind, Soul, Suppression, Channel Benchmarks
+PHASE 5: Validation Framework Layer (0.5.x NEW)
+New directory: 0.5_f(Validation_Framework)/
+
+5.1 f(MMM_Comparison) - Meridian/Robyn/PyMC Integration
+# 0.5.a f(MMM_Comparison)
+
+## Validating f(x) Against Established Marketing Mix Models
+
+### Framework Comparison
+
+|
+ Framework 
+|
+ Methodology 
+|
+ Our Mapping 
+|
+|
+-----------
+|
+-------------
+|
+-------------
+|
+|
+ Google Meridian 
+|
+ Bayesian geo-level 
+|
+ Compare ROI estimates 
+|
+|
+ Meta Robyn 
+|
+ Ridge + Nevergrad 
+|
+ Compare attribution 
+|
+|
+ PyMC-Marketing 
+|
+ Full Bayesian 
+|
+ Compare posteriors 
+|
+
+### Validation Protocol
+
+1. **Run parallel models** on same dataset
+2. **Compare predictions** on holdout period
+3. **Calibrate with incrementality** experiments
+4. **Report confidence intervals** on divergence
+
+### Code Implementation
+
+```python
+from funnel_function import FunnelFunction
+from pymc_marketing.mmm import MMM
+import meridian
+
+class ValidationSuite:
+    def compare_against_mmm(self, data, holdout_pct=0.2):
+        # Train all models on same data
+        ff_model = FunnelFunction().fit(data)
+        pymc_model = MMM().fit(data)
+        meridian_model = meridian.Model().fit(data)
+        
+        # Predict on holdout
+        holdout = data.sample(frac=holdout_pct)
+        
+        ff_pred = ff_model.predict(holdout)
+        pymc_pred = pymc_model.predict(holdout)
+        meridian_pred = meridian_model.predict(holdout)
+        
+        # Compute metrics
+        return {
+            'ff_mape': mape(holdout.actual, ff_pred),
+            'pymc_mape': mape(holdout.actual, pymc_pred),
+            'meridian_mape': mape(holdout.actual, meridian_pred),
+            'correlation_ff_pymc': corr(ff_pred, pymc_pred),
+            'correlation_ff_meridian': corr(ff_pred, meridian_pred)
+        }
+
+Expected Outcomes
+f(x) should:
+
+Match or exceed MMM accuracy on lower-funnel metrics
+Provide additional insight on B/M/S decomposition
+Enable inverse problem solving (which MMMs cannot do)
+
+---
+
+## PHASE 6: Code Implementation Layer (0.6.x NEW)
+
+**New directory:** `0.6_f(Code_Implementation)/`
+
+### Package Structure
+
+
+0.6_f(Code_Implementation)/ ├── funnel_function/ │ ├── init.py │ ├── core/ │ │ ├── master_equation.py # f(x) = W · γ^t · ∫(BMS/Σ)dτ │ │ ├── gating_function.py # A = (S·R·Π)/(N+L+Θ) │ │ ├── body.py # Sensory strength │ │ ├── mind.py # Relevance (prediction error) │ │ ├── soul.py # Resonance (identity alignment) │ │ ├── suppression.py # N + L + Θ │ │ └── writability.py # W(x) = δ(Φ-Ψ) > ε │ ├── measurement/ │ │ ├── adelaide_integration.py │ │ ├── lumen_integration.py │ │ ├── mental_availability.py # CEP methodology │ │ └── channel_benchmarks.py │ ├── validation/ │ │ ├── mmm_comparison.py │ │ ├── incrementality.py │ │ └── holdout_testing.py │ ├── attribution/ │ │ ├── shapley.py # φ_i = Σ[|S|!(n-|S|-1)!/n!]·[v(S∪{i})-v(S)] │ │ └── marginal_revenue.py # MRC = ∂P/∂I · ∂I/∂A · ∂A/∂λ │ ├── autonomous/ │ │ ├── bellman.py # Q*(s,a) = R + γΣP·maxQ* │ │ ├── bandits.py # Thompson, UCB, LinUCB │ │ ├── policy_gradient.py # PPO, SAC │ │ └── kelly.py # f* = μ/σ² │ └── inverse/ │ ├── reverse_solve.py # Given target, solve for BMS trajectory │ └── prescription.py # Generate week-by-week action plan ├── notebooks/ │ ├── 01_master_equation_demo.ipynb │ ├── 02_retrospective_autopsy.ipynb │ ├── 03_prospective_simulation.ipynb │ ├── 04_mint_mobile_reverse_engineer.ipynb │ └── 05_peloton_forward_prediction.ipynb ├── tests/ │ └── [comprehensive test suite] ├── setup.py └── README.md
+
+
+---
+
+## PHASE 7: Predictions Layer (0.7.x NEW)
+
+**New directory:** `0.7_f(Predictions)/`
+
+### 7.1 Peloton 18-Month Prediction (Falsifiable)
+
+```markdown
+# 0.7.a f(Prediction_Peloton)
+
+## Hypothesis (December 2025)
+
+**Current state (estimated):**
+- f(x) = 0.87
+- Σ = 42 (high price friction + luxury identity misalignment)
+- Π = 0.63 (luxury fitness archetype)
+
+**Prediction:** If Peloton executes:
+1. Price reduction: $1,445 → $995 (31% cut)
+2. Messaging shift: "luxury fitness" → "daily essential"
+3. Distribution expansion: retail partnerships
+
+Then by June 2027:
+- f(x) increases to 6.0-9.4
+- MAU increases 40-60%
+- RPU decreases 25-35%
+- Total revenue increases 15-25%
+
+## Falsification Criteria
+
+This prediction FAILS if by December 2026:
+- f(x) < 3.0 despite Σ reduction
+- MAU increase < 20%
+- Model systematically over/under-predicts by >50%
+
+## Tracking Protocol
+
+| Month | Metric | Source | Target |
+|-------|--------|--------|--------|
+| Q1 2026 | MAU | Earnings | +10% |
+| Q2 2026 | f(x) estimate | Our model | 2.5-4.0 |
+| Q4 2026 | Revenue | Earnings | +8% |
+| Q2 2027 | Final f(x) | Our model | 6.0-9.4 |
+
+PHASE 8: Historical Lineage Layer (0.8.x NEW)
+New directory: 0.8_f(Historical_Lineage)/
+
+Expand your 21st Century Mediums document into a complete 45,000-year treatment:
+
+# 0.8.a f(Complete_History)
+
+## 45,000 Years of Commercial Attention
+
+### Epoch 0: Pre-Symbolic (200,000 - 45,000 BCE)
+- Attention as survival mechanism
+- No mediated communication
+- f(Attention) = pure predator/prey detection
+
+### Epoch 1: Symbolic Revolution (45,000 - 3200 BCE)
+- Cave paintings as first "broadcast"
+- Oral tradition as first "viral"
+- Trade routes as first "distribution"
+
+### Epoch 2: Written Word (3200 BCE - 1450 CE)
+[Full treatment with equations]
+
+### Epoch 3: Print Revolution (1450 - 1900)
+[Full treatment with equations]
+
+### Epoch 4: Electronic Mass Media (1900 - 1990)
+[Full treatment with equations]
+
+### Epoch 5: Digital Fragmentation (1990 - 2015)
+[Full treatment with equations]
+
+### Epoch 6: Algorithmic Infinity (2015 - Present)
+[Full treatment with equations]
+
+### Epoch 7: Autonomous Era (2025 - Future)
+[Full treatment with equations]
+
+PHASE 9: Final Integration
+9.1 Cross-Reference All Equations
+Ensure consistent notation across all 100+ equations
+Build equation index with bidirectional links
+Create visual equation dependency graph
+9.2 Update Main README
+Reflect new 0.4-0.8 layers
+Update Table of Contents
+Add "How to Navigate This Repository" section
+9.3 Quality Assurance
+Every "coming soon" replaced with full content
+Every equation has derivation and worked example
+Every claim has either empirical backing or explicit hypothesis status
+Final Repository Structure
+0.0_git_funnelfunction_marketing_Principals/
+├── README.md                              # Master document (updated)
+├── 0.1_f(Foundations_of_Sales)/           # ✅ Complete
+│   ├── 0.1.b_f(Autonomous_Decision_Systems)/
+│   ├── 0.1.c_f(Intent_Tensor_Theory)/
+│   ├── 0.1.d_f(Collapse_Geometry)/
+│   ├── 0.1.e_f(Writables_Doctrine)/
+│   ├── 0.1.f_f(Suppression_Theory)/       # NEW
+│   └── 0.1_f(The_Funnel_Function)/
+├── 0.2_f(The_Sales_Funnel)/               # ✅ Complete (all expanded)
+│   ├── 0.2.a_f(Top_of_Funnel)/
+│   ├── 0.2.b_f(Middle_of_Funnel)/
+│   └── 0.2.c_f(Bottom_of_Funnel)/
+├── 0.3_f(Non_Funnel_Models)/              # ✅ Complete (full papers)
+│   ├── 0.3.a_f(Recursive_Collapse)/
+│   ├── 0.3.b_f(Field_Acquisition)/
+│   ├── 0.3.c_f(Autonomous_ROI)/
+│   └── 0.3.d_f(Learned_Policy)/
+├── 0.4_f(Measurement_Protocols)/          # NEW LAYER
+│   ├── 0.4.a_f(Body_Measurement)/
+│   ├── 0.4.b_f(Mind_Measurement)/
+│   ├── 0.4.c_f(Soul_Measurement)/
+│   ├── 0.4.d_f(Suppression_Measurement)/
+│   └── 0.4.e_f(Channel_Benchmarks)/
+├── 0.5_f(Validation_Framework)/           # NEW LAYER
+│   ├── 0.5.a_f(MMM_Comparison)/
+│   ├── 0.5.b_f(Incrementality_Calibration)/
+│   └── 0.5.c_f(Holdout_Testing)/
+├── 0.6_f(Code_Implementation)/            # NEW LAYER
+│   ├── funnel_function/                   # Python package
+│   ├── notebooks/
+│   └── tests/
+├── 0.7_f(Predictions)/                    # NEW LAYER
+│   ├── 0.7.a_f(Peloton_2025_2027)/
+│   ├── 0.7.b_f(Tesla_Cybertruck)/
+│   └── 0.7.c_f(Airbnb_Sensory)/
+└── 0.8_f(Historical_Lineage)/             # NEW LAYER
+    └── 0.8.a_f(45000_Year_History)/
+
+Execution Priority
+Phase	Content	Est. Pages	Priority
+2	Complete 0.2.x (6 docs)	~360 pages	🔴 CRITICAL
+3	Complete 0.3.x (4 docs)	~200 pages	🔴 CRITICAL
+4	Create 0.4.x (5 docs)	~150 pages	🟡 HIGH
+6	Create 0.6.x (code)	~5000 LOC	🟡 HIGH
+5	Create 0.5.x (3 docs)	~100 pages	🟡 HIGH
+7	Create 0.7.x (3 docs)	~50 pages	🟢 MEDIUM
+1	Expand 0.1.x (2 docs)	~100 pages	🟢 MEDIUM
+8	Create 0.8.x (1 doc)	~100 pages	🟢 MEDIUM
+9	Integration	~50 pages	🟢 FINAL
+Total new content: ~1,100 pages of documentation + ~5,000 lines of production code
+
+This is the plan. No depreciation. No simplification. EXPANSION to world scientific standard.
