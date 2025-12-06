@@ -1,0 +1,944 @@
+<!-- Pro-Marketing Simulators - WordPress Version -->
+<!-- By Armstrong Knight & Abdullah Khan | AI Synthesis: ChatGPT, Claude, Gemini, Grok -->
+
+<style>
+:root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-tertiary: #1a1a24;
+    --accent-blue: #3b82f6;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
+    --accent-purple: #8b5cf6;
+    --accent-yellow: #f59e0b;
+    --accent-cyan: #06b6d4;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+}
+
+.sims-container {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, sans-serif;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.sims-container * { box-sizing: border-box; }
+
+.sims-hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+    border-radius: 24px;
+    margin-bottom: 40px;
+}
+
+.sims-title {
+    font-size: 48px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #10b981, #8b5cf6, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+}
+
+.sims-subtitle {
+    color: var(--text-secondary);
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+.sims-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.sims-stat {
+    padding: 8px 16px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.sims-stat span { font-weight: bold; }
+.sims-stat .green { color: var(--accent-green); }
+.sims-stat .purple { color: var(--accent-purple); }
+.sims-stat .blue { color: var(--accent-blue); }
+
+/* Game Cards */
+.sims-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+}
+
+.game-card {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.game-card.seller { border-top: 4px solid var(--accent-green); }
+.game-card.buyer { border-top: 4px solid var(--accent-purple); }
+.game-card.prospective { border-top: 4px solid var(--accent-blue); }
+.game-card.retrospective { border-top: 4px solid var(--accent-yellow); }
+.game-card.core { border-top: 4px solid var(--accent-cyan); }
+
+.game-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.game-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.game-icon.green { background: rgba(16, 185, 129, 0.2); }
+.game-icon.purple { background: rgba(139, 92, 246, 0.2); }
+.game-icon.blue { background: rgba(59, 130, 246, 0.2); }
+.game-icon.yellow { background: rgba(245, 158, 11, 0.2); }
+.game-icon.cyan { background: rgba(6, 182, 212, 0.2); }
+
+.game-title { font-size: 18px; font-weight: bold; }
+.game-pov { font-size: 11px; font-family: monospace; }
+.game-pov.green { color: var(--accent-green); }
+.game-pov.purple { color: var(--accent-purple); }
+.game-pov.blue { color: var(--accent-blue); }
+.game-pov.yellow { color: var(--accent-yellow); }
+.game-pov.cyan { color: var(--accent-cyan); }
+
+.game-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.game-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.game-tag {
+    padding: 4px 8px;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* Tab Navigation */
+.tabs-nav {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 40px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
+
+.tab-btn {
+    padding: 16px 24px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover { color: var(--text-secondary); }
+
+.tab-btn.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--accent-purple);
+}
+
+/* Simulator Panels */
+.sim-panel {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease;
+}
+
+.sim-panel.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.sim-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sim-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.sim-badge.green { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+.sim-badge.purple { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+.sim-badge.blue { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); }
+.sim-badge.yellow { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
+.sim-badge.cyan { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); }
+
+.sim-title { font-size: 36px; font-weight: bold; margin-bottom: 12px; }
+
+.sim-desc {
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Simulator Grid */
+.sim-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .sim-grid { grid-template-columns: 1fr; }
+}
+
+.sim-box {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.sim-box.green { border: 1px solid rgba(16, 185, 129, 0.3); }
+.sim-box.purple { border: 1px solid rgba(139, 92, 246, 0.3); }
+.sim-box.blue { border: 1px solid rgba(59, 130, 246, 0.3); }
+.sim-box.red { border: 1px solid rgba(239, 68, 68, 0.3); }
+.sim-box.yellow { border: 1px solid rgba(245, 158, 11, 0.3); }
+.sim-box.cyan { border: 1px solid rgba(6, 182, 212, 0.3); }
+
+.sim-box-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sim-box-title.green { color: var(--accent-green); }
+.sim-box-title.purple { color: var(--accent-purple); }
+.sim-box-title.blue { color: var(--accent-blue); }
+.sim-box-title.red { color: var(--accent-red); }
+.sim-box-title.yellow { color: var(--accent-yellow); }
+.sim-box-title.cyan { color: var(--accent-cyan); }
+
+/* Slider Styling */
+.slider-group { margin-bottom: 24px; }
+
+.slider-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.slider-value {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.slider-value.green { color: var(--accent-green); }
+.slider-value.red { color: var(--accent-red); }
+.slider-value.purple { color: var(--accent-purple); }
+
+input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--bg-tertiary);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider-green::-webkit-slider-thumb { background: var(--accent-green); }
+.slider-red::-webkit-slider-thumb { background: var(--accent-red); }
+.slider-blue::-webkit-slider-thumb { background: var(--accent-blue); }
+.slider-purple::-webkit-slider-thumb { background: var(--accent-purple); }
+
+.slider-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Score Display */
+.score-box {
+    background: var(--bg-tertiary);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.score-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.score-value {
+    font-family: monospace;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.score-value.large { font-size: 48px; }
+
+/* Level Badge */
+.level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.level-badge.gold { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
+.level-badge.silver { background: rgba(148, 163, 184, 0.2); color: var(--text-secondary); }
+
+/* Progress Bar */
+.progress-group { margin-bottom: 16px; }
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.progress-bar {
+    height: 10px;
+    background: var(--bg-tertiary);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+.progress-fill.green { background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); }
+.progress-fill.blue { background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); }
+.progress-fill.purple { background: linear-gradient(90deg, var(--accent-purple), var(--accent-yellow)); }
+
+/* Insight Cards */
+.insight {
+    padding: 16px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    border-left: 4px solid;
+    margin-bottom: 12px;
+}
+
+.insight.yellow { border-color: var(--accent-yellow); }
+.insight.green { border-color: var(--accent-green); }
+.insight.purple { border-color: var(--accent-purple); }
+.insight.red { border-color: var(--accent-red); }
+
+.insight-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.insight-title.yellow { color: var(--accent-yellow); }
+.insight-title.green { color: var(--accent-green); }
+.insight-title.purple { color: var(--accent-purple); }
+.insight-title.red { color: var(--accent-red); }
+
+.insight-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Footer */
+.sims-footer {
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.sims-footer a {
+    color: var(--accent-purple) !important;
+    text-decoration: none;
+    margin: 0 12px;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+/* Equation Display */
+.equation-display {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 12px;
+    padding: 16px 24px;
+    display: inline-block;
+    margin: 20px 0;
+}
+
+.equation-text {
+    font-family: monospace;
+    font-size: 18px;
+    color: var(--accent-cyan);
+}
+</style>
+
+<div class="sims-container">
+    <!-- Hero -->
+    <div class="sims-hero">
+        <p style="color: var(--accent-yellow); font-size: 12px; letter-spacing: 2px; margin-bottom: 12px;">MASTER THE MATH WITHOUT THE MATH</p>
+        <h1 class="sims-title">Pro-Marketing Simulators</h1>
+        <p class="sims-subtitle">
+            Five gamified tools that reduce 127 years of marketing science to drag-and-play.
+            See your scores. Understand why. Win.
+        </p>
+        <div class="sims-stats">
+            <div class="sims-stat"><span class="green">5</span> Simulators</div>
+            <div class="sims-stat"><span class="purple">2</span> POVs</div>
+            <div class="sims-stat"><span class="blue">0</span> Equations Required</div>
+        </div>
+    </div>
+
+    <!-- Game Cards -->
+    <div class="sims-grid">
+        <div class="game-card seller" onclick="switchSimTab('seller')">
+            <div class="game-header">
+                <div class="game-icon green">🎯</div>
+                <div>
+                    <div class="game-title">Campaign Commander</div>
+                    <div class="game-pov green">SELLER POV</div>
+                </div>
+            </div>
+            <p class="game-desc">You're the marketer. Allocate budget, tune creative, target audiences. Watch your attention-capture score respond in real-time.</p>
+            <div class="game-tags">
+                <span class="game-tag">Budget</span>
+                <span class="game-tag">Creative</span>
+                <span class="game-tag">Targeting</span>
+            </div>
+        </div>
+
+        <div class="game-card buyer" onclick="switchSimTab('buyer')">
+            <div class="game-header">
+                <div class="game-icon purple">🧠</div>
+                <div>
+                    <div class="game-title">Attention Journey</div>
+                    <div class="game-pov purple">BUYER POV</div>
+                </div>
+            </div>
+            <p class="game-desc">You're the customer. Set your mood, distractions, needs. See which marketing breaks through YOUR mental filters.</p>
+            <div class="game-tags">
+                <span class="game-tag">Mood</span>
+                <span class="game-tag">Focus</span>
+                <span class="game-tag">Need</span>
+            </div>
+        </div>
+
+        <div class="game-card prospective" onclick="switchSimTab('prospective')">
+            <div class="game-header">
+                <div class="game-icon blue">🔮</div>
+                <div>
+                    <div class="game-title">Forecast Engine</div>
+                    <div class="game-pov blue">PROSPECTIVE</div>
+                </div>
+            </div>
+            <p class="game-desc">Plan your campaign. Get predicted outcomes over 12 weeks. Compare scenarios. Optimize before you spend.</p>
+            <div class="game-tags">
+                <span class="game-tag">Planning</span>
+                <span class="game-tag">Forecasting</span>
+                <span class="game-tag">A/B</span>
+            </div>
+        </div>
+
+        <div class="game-card retrospective" onclick="switchSimTab('retrospective')">
+            <div class="game-header">
+                <div class="game-icon yellow">🔬</div>
+                <div>
+                    <div class="game-title">Autopsy Lab</div>
+                    <div class="game-pov yellow">RETROSPECTIVE</div>
+                </div>
+            </div>
+            <p class="game-desc">Input your actual results. Diagnose what went wrong (or right). Get prescriptions for improvement.</p>
+            <div class="game-tags">
+                <span class="game-tag">Analysis</span>
+                <span class="game-tag">Diagnosis</span>
+                <span class="game-tag">Rx</span>
+            </div>
+        </div>
+
+        <div class="game-card core" onclick="switchSimTab('core')">
+            <div class="game-header">
+                <div class="game-icon cyan">⚛️</div>
+                <div>
+                    <div class="game-title">Gating Function Lab</div>
+                    <div class="game-pov cyan">CORE SCIENCE</div>
+                </div>
+            </div>
+            <p class="game-desc">The raw equation. Body × Mind × Soul vs. Suppressors. For those who want to see the actual math in action.</p>
+            <div class="game-tags">
+                <span class="game-tag">B·M·S</span>
+                <span class="game-tag">N+L+Θ</span>
+                <span class="game-tag">P(A)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="seller">🎯 Campaign Commander</button>
+        <button class="tab-btn" data-tab="buyer">🧠 Attention Journey</button>
+        <button class="tab-btn" data-tab="prospective">🔮 Forecast Engine</button>
+        <button class="tab-btn" data-tab="retrospective">🔬 Autopsy Lab</button>
+        <button class="tab-btn" data-tab="core">⚛️ Core Science</button>
+    </div>
+
+    <!-- PANEL 1: Campaign Commander -->
+    <div class="sim-panel active" id="panel-seller">
+        <div class="sim-header">
+            <span class="sim-badge green">SELLER POV</span>
+            <h2 class="sim-title">Campaign Commander</h2>
+            <p class="sim-desc">You control the marketing levers. Optimize your campaign to maximize attention capture and conversion probability.</p>
+        </div>
+
+        <div class="sim-grid">
+            <div class="sim-box green">
+                <h3 class="sim-box-title green">🎮 Your Controls</h3>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Monthly Budget</span>
+                        <span class="slider-value green">$<span id="s1-budget-val">10,000</span></span>
+                    </div>
+                    <input type="range" min="1000" max="100000" value="10000" step="1000" id="s1-budget" class="slider-green">
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Creative Quality</span>
+                        <span class="slider-value green"><span id="s1-creative-val">60</span>%</span>
+                    </div>
+                    <input type="range" min="10" max="100" value="60" id="s1-creative" class="slider-green">
+                    <p class="slider-hint">Maps to Body (B) in equation</p>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Targeting Precision</span>
+                        <span class="slider-value green"><span id="s1-targeting-val">50</span>%</span>
+                    </div>
+                    <input type="range" min="10" max="100" value="50" id="s1-targeting" class="slider-green">
+                    <p class="slider-hint">Maps to Mind (M) in equation</p>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Brand Authenticity</span>
+                        <span class="slider-value green"><span id="s1-authenticity-val">40</span>%</span>
+                    </div>
+                    <input type="range" min="10" max="100" value="40" id="s1-authenticity" class="slider-green">
+                    <p class="slider-hint">Maps to Soul (S) - THE MULTIPLIER</p>
+                </div>
+
+                <div class="slider-group">
+                    <label style="font-size: 14px; display: block; margin-bottom: 8px;">Primary Channel</label>
+                    <select id="s1-channel">
+                        <option value="28">TikTok (Noise: 28)</option>
+                        <option value="22">Instagram (Noise: 22)</option>
+                        <option value="18">Facebook (Noise: 18)</option>
+                        <option value="12" selected>YouTube (Noise: 12)</option>
+                        <option value="8">LinkedIn (Noise: 8)</option>
+                        <option value="4">Email (Noise: 4)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sim-box purple">
+                <h3 style="text-align: center; margin-bottom: 24px;">Your Campaign Score</h3>
+
+                <div class="score-box">
+                    <div class="score-value large" id="s1-score" style="color: var(--accent-blue);">42</div>
+                    <div class="score-label">Attention Capture Score</div>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <span class="level-badge gold" id="s1-level">🥉 BRONZE MARKETER</span>
+                </div>
+
+                <div class="progress-group">
+                    <div class="progress-header">
+                        <span>Signal Strength</span>
+                        <span style="font-family: monospace;" id="s1-signal">0.12</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill green" id="s1-signal-bar" style="width: 12%;"></div>
+                    </div>
+                </div>
+
+                <div class="progress-group">
+                    <div class="progress-header">
+                        <span>P(Awareness)</span>
+                        <span style="font-family: monospace;" id="s1-awareness">34%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill blue" id="s1-awareness-bar" style="width: 34%;"></div>
+                    </div>
+                </div>
+
+                <div class="progress-group">
+                    <div class="progress-header">
+                        <span>Est. Conversions</span>
+                        <span style="font-family: monospace;" id="s1-conversions">127</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill purple" id="s1-conversions-bar" style="width: 25%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sim-box blue">
+                <h3 class="sim-box-title blue">💡 AI Insights</h3>
+                <div id="s1-insights">
+                    <div class="insight yellow">
+                        <div class="insight-title yellow">⚠️ Weak Link: Soul</div>
+                        <div class="insight-text">Your brand authenticity is bottlenecking performance. Increase from 40% to 70% to unlock 2.3x higher awareness.</div>
+                    </div>
+                    <div class="insight green">
+                        <div class="insight-title green">✓ Strong: Creative</div>
+                        <div class="insight-text">Creative quality at 60% is above average. Consider video >15 seconds for 1.5s encoding threshold.</div>
+                    </div>
+                    <div class="insight purple">
+                        <div class="insight-title purple">🎯 Recommendation</div>
+                        <div class="insight-text">Switch to Email (Noise: 4) to reduce denominator by 8 points. Same budget, 2x breakthrough.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 5: Core Science -->
+    <div class="sim-panel" id="panel-core">
+        <div class="sim-header">
+            <span class="sim-badge cyan">CORE SCIENCE</span>
+            <h2 class="sim-title">Gating Function Lab</h2>
+            <p class="sim-desc">The raw equation. For those who want to see the actual mathematics in action.</p>
+            <div class="equation-display">
+                <span class="equation-text">𝒜 = (B · M · S) / (N + L + Θ)</span>
+            </div>
+        </div>
+
+        <div class="sim-grid">
+            <div class="sim-box green">
+                <h3 class="sim-box-title green">SIGNAL DRIVERS</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Multiplicative. If ANY hits zero, signal collapses.</p>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>B (Body)</span>
+                        <span class="slider-value green" id="core-val-b">0.34</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="34" id="core-slider-b" class="slider-green">
+                    <p class="slider-hint">Sensory strength × Viewability × Duration</p>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>M (Mind)</span>
+                        <span class="slider-value green" id="core-val-m">0.50</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" id="core-slider-m" class="slider-green">
+                    <p class="slider-hint">Intent match × Prediction error</p>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>S (Soul)</span>
+                        <span class="slider-value green" id="core-val-s">0.40</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="40" id="core-slider-s" class="slider-green">
+                    <p class="slider-hint">Identity congruence × Story match</p>
+                </div>
+            </div>
+
+            <div class="sim-box cyan">
+                <div class="score-box">
+                    <div class="score-label">Instantaneous Activation (𝒜)</div>
+                    <div class="score-value" id="core-output-a">0.00304</div>
+                </div>
+
+                <div class="score-box" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));">
+                    <div class="score-label">P(Awareness) via Sigmoid</div>
+                    <div class="score-value large" id="core-output-p" style="color: var(--accent-blue);">41.0%</div>
+                </div>
+
+                <p style="text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 16px;">α=50, β=0.5</p>
+            </div>
+
+            <div class="sim-box red">
+                <h3 class="sim-box-title red">SUPPRESSORS</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Additive. Compete for cognitive bandwidth.</p>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>N (Noise)</span>
+                        <span class="slider-value red" id="core-val-n">20</span>
+                    </div>
+                    <input type="range" min="1" max="100" value="20" id="core-slider-n" class="slider-red">
+                    <p class="slider-hint">TikTok≈28 | YouTube≈12 | TV≈4</p>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>L (Load)</span>
+                        <span class="slider-value red" id="core-val-l">2</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="2" id="core-slider-l" class="slider-red">
+                    <p class="slider-hint">Cowan's 4±1 chunks</p>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Θ (Threshold)</span>
+                        <span class="slider-value red" id="core-val-theta">0.1</span>
+                    </div>
+                    <input type="range" min="1" max="20" value="1" id="core-slider-theta" class="slider-red">
+                    <p class="slider-hint">Personal habituation barrier</p>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 30px; color: var(--text-secondary);">
+            <span style="color: var(--accent-green);">↑</span> Push Soul to 0.80 → watch P(Awareness) explode.
+            <span style="color: var(--accent-red);">↑</span> Crank Noise to 50 → watch the denominator win.
+        </p>
+    </div>
+
+    <!-- Placeholder panels for other simulators -->
+    <div class="sim-panel" id="panel-buyer">
+        <div class="sim-header">
+            <span class="sim-badge purple">BUYER POV</span>
+            <h2 class="sim-title">Attention Journey</h2>
+            <p class="sim-desc">You are the customer. Set your mental state. See what marketing breaks through YOUR cognitive filters.</p>
+        </div>
+        <p style="text-align: center; color: var(--text-muted); padding: 60px 20px;">
+            Full buyer simulator coming soon. Try Campaign Commander or Core Science above!
+        </p>
+    </div>
+
+    <div class="sim-panel" id="panel-prospective">
+        <div class="sim-header">
+            <span class="sim-badge blue">PROSPECTIVE</span>
+            <h2 class="sim-title">Forecast Engine</h2>
+            <p class="sim-desc">Plan your campaign. Get predicted outcomes over 12 weeks. Compare scenarios before spending.</p>
+        </div>
+        <p style="text-align: center; color: var(--text-muted); padding: 60px 20px;">
+            Full forecast engine coming soon. Try Campaign Commander or Core Science above!
+        </p>
+    </div>
+
+    <div class="sim-panel" id="panel-retrospective">
+        <div class="sim-header">
+            <span class="sim-badge yellow">RETROSPECTIVE</span>
+            <h2 class="sim-title">Autopsy Lab</h2>
+            <p class="sim-desc">Input your actual results. Diagnose what went wrong (or right). Get prescriptions for improvement.</p>
+        </div>
+        <p style="text-align: center; color: var(--text-muted); padding: 60px 20px;">
+            Full autopsy lab coming soon. Try Campaign Commander or Core Science above!
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="sims-footer">
+        <p style="margin-bottom: 16px;">
+            <a href="/">Home</a>
+            <a href="https://github.com/FunnelFunction/0.0_git_funnelfunction_marketing_Principals" target="_blank">GitHub</a>
+        </p>
+        <p>© 2025 Funnel Function Institute</p>
+        <p style="margin-top: 8px;">By Armstrong Knight & Abdullah Khan | AI Synthesis: ChatGPT, Claude, Gemini, Grok</p>
+    </div>
+</div>
+
+<script>
+// Tab switching
+function switchSimTab(tabName) {
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+    document.querySelectorAll('.sim-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.id === 'panel-' + tabName);
+    });
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        switchSimTab(this.dataset.tab);
+    });
+});
+
+// Campaign Commander Logic
+function updateCampaign() {
+    var budget = parseInt(document.getElementById('s1-budget').value);
+    var creative = parseInt(document.getElementById('s1-creative').value) / 100;
+    var targeting = parseInt(document.getElementById('s1-targeting').value) / 100;
+    var authenticity = parseInt(document.getElementById('s1-authenticity').value) / 100;
+    var noise = parseInt(document.getElementById('s1-channel').value);
+
+    document.getElementById('s1-budget-val').textContent = budget.toLocaleString();
+    document.getElementById('s1-creative-val').textContent = Math.round(creative * 100);
+    document.getElementById('s1-targeting-val').textContent = Math.round(targeting * 100);
+    document.getElementById('s1-authenticity-val').textContent = Math.round(authenticity * 100);
+
+    var signal = creative * targeting * authenticity;
+    var denominator = noise + 2 + 0.1;
+    var A = signal / denominator;
+    var P = 1 / (1 + Math.exp(-(50 * A - 0.5)));
+    var score = Math.round(P * 100);
+
+    var reach = budget * 20;
+    var conversions = Math.round(reach * P * 0.02);
+
+    document.getElementById('s1-signal').textContent = signal.toFixed(3);
+    document.getElementById('s1-signal-bar').style.width = (signal * 100) + '%';
+    document.getElementById('s1-awareness').textContent = (P * 100).toFixed(1) + '%';
+    document.getElementById('s1-awareness-bar').style.width = (P * 100) + '%';
+    document.getElementById('s1-conversions').textContent = conversions.toLocaleString();
+    document.getElementById('s1-conversions-bar').style.width = Math.min(conversions / 5, 100) + '%';
+    document.getElementById('s1-score').textContent = score;
+
+    var levelEl = document.getElementById('s1-level');
+    if (score >= 80) {
+        levelEl.innerHTML = '🏆 LEGENDARY MARKETER';
+        levelEl.className = 'level-badge gold';
+    } else if (score >= 60) {
+        levelEl.innerHTML = '🥇 GOLD MARKETER';
+        levelEl.className = 'level-badge gold';
+    } else if (score >= 40) {
+        levelEl.innerHTML = '🥈 SILVER MARKETER';
+        levelEl.className = 'level-badge silver';
+    } else {
+        levelEl.innerHTML = '🥉 BRONZE MARKETER';
+        levelEl.className = 'level-badge silver';
+    }
+
+    var scoreEl = document.getElementById('s1-score');
+    if (score >= 70) scoreEl.style.color = 'var(--accent-green)';
+    else if (score >= 40) scoreEl.style.color = 'var(--accent-blue)';
+    else scoreEl.style.color = 'var(--accent-red)';
+}
+
+['s1-budget', 's1-creative', 's1-targeting', 's1-authenticity', 's1-channel'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateCampaign);
+    if (el) el.addEventListener('change', updateCampaign);
+});
+
+// Core Science Logic
+function updateCore() {
+    var B = parseInt(document.getElementById('core-slider-b').value) / 100;
+    var M = parseInt(document.getElementById('core-slider-m').value) / 100;
+    var S = parseInt(document.getElementById('core-slider-s').value) / 100;
+    var N = parseInt(document.getElementById('core-slider-n').value);
+    var L = parseInt(document.getElementById('core-slider-l').value);
+    var Theta = parseInt(document.getElementById('core-slider-theta').value) / 10;
+
+    document.getElementById('core-val-b').textContent = B.toFixed(2);
+    document.getElementById('core-val-m').textContent = M.toFixed(2);
+    document.getElementById('core-val-s').textContent = S.toFixed(2);
+    document.getElementById('core-val-n').textContent = N;
+    document.getElementById('core-val-l').textContent = L;
+    document.getElementById('core-val-theta').textContent = Theta.toFixed(1);
+
+    var A = (B * M * S) / (N + L + Theta);
+    var P = 1 / (1 + Math.exp(-(50 * A - 0.5)));
+
+    document.getElementById('core-output-a').textContent = A.toFixed(5);
+    var pEl = document.getElementById('core-output-p');
+    pEl.textContent = (P * 100).toFixed(1) + '%';
+
+    if (P > 0.7) pEl.style.color = 'var(--accent-green)';
+    else if (P > 0.4) pEl.style.color = 'var(--accent-blue)';
+    else pEl.style.color = 'var(--accent-red)';
+}
+
+['core-slider-b', 'core-slider-m', 'core-slider-s', 'core-slider-n', 'core-slider-l', 'core-slider-theta'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateCore);
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    updateCampaign();
+    updateCore();
+});
+
+// Run immediately too
+updateCampaign();
+updateCore();
+</script>
