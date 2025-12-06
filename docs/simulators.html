@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro-Marketing Simulators | Funnel Function</title>
+    <meta name="description" content="Gamified marketing simulators. Master the math of attention without the math. Seller POV, Buyer POV, Prospective & Retrospective calculators.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a24;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-purple: #8b5cf6;
+            --accent-yellow: #f59e0b;
+            --accent-cyan: #06b6d4;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Animated background */
+        .hero-gradient {
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            background-image:
+                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Game card styles */
+        .game-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-card.seller { border-top: 4px solid var(--accent-green); }
+        .game-card.buyer { border-top: 4px solid var(--accent-purple); }
+        .game-card.prospective { border-top: 4px solid var(--accent-blue); }
+        .game-card.retrospective { border-top: 4px solid var(--accent-yellow); }
+        .game-card.core { border-top: 4px solid var(--accent-cyan); }
+
+        /* Slider styling */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+        }
+
+        /* Score displays */
+        .score-display {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 2px solid;
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(16, 185, 129, 0.5); }
+            50% { border-color: rgba(59, 130, 246, 0.5); }
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            height: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Level badge */
+        .level-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Tab system */
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover { color: var(--text-secondary); }
+        .tab-btn.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--accent-purple);
+        }
+
+        .simulator-panel {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .simulator-panel.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Gauge meter */
+        .gauge-container {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .gauge-bg {
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            border-radius: 100px 100px 0 0;
+            background: conic-gradient(
+                from 180deg,
+                var(--accent-red) 0deg,
+                var(--accent-yellow) 60deg,
+                var(--accent-green) 120deg,
+                var(--accent-green) 180deg
+            );
+            overflow: hidden;
+        }
+
+        .gauge-bg::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            right: 20px;
+            bottom: 0;
+            background: var(--bg-secondary);
+            border-radius: 80px 80px 0 0;
+        }
+
+        .gauge-needle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            height: 70px;
+            background: white;
+            transform-origin: bottom center;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+            margin-left: -2px;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .tooltip:hover::after { opacity: 1; }
+
+        /* Achievement unlock */
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid var(--accent-yellow);
+            border-radius: 12px;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+
+        .achievement.unlocked {
+            opacity: 1;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-primary)]/90 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-3">
+                <span class="text-2xl font-bold bg-gradient-to-r from-[var(--accent-purple)] to-[var(--accent-green)] bg-clip-text text-transparent">f(x)</span>
+                <span class="text-sm text-[var(--text-secondary)] hidden sm:inline">Pro-Marketing Simulators</span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="/" class="text-sm text-[var(--text-secondary)] hover:text-white transition-colors">Home</a>
+                <a href="https://github.com/FunnelFunction/0.0_git_funnelfunction_marketing_Principals" target="_blank" class="px-4 py-2 bg-[var(--accent-purple)] text-white text-sm font-medium rounded-lg hover:bg-purple-600 transition-colors">
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[60vh] flex items-center justify-center hero-gradient grid-overlay pt-20">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="mono text-[var(--accent-yellow)] text-sm tracking-widest mb-4">MASTER THE MATH WITHOUT THE MATH</p>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+                Pro-Marketing<br>
+                <span class="bg-gradient-to-r from-[var(--accent-green)] via-[var(--accent-purple)] to-[var(--accent-blue)] bg-clip-text text-transparent">
+                    Simulators
+                </span>
+            </h1>
+            <p class="text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-8">
+                Five gamified tools that reduce 127 years of marketing science to <span class="text-white font-semibold">drag-and-play</span>.
+                See your scores. Understand why. Win.
+            </p>
+
+            <!-- Quick Stats -->
+            <div class="flex flex-wrap justify-center gap-6 mono text-sm">
+                <div class="px-4 py-2 bg-[var(--bg-secondary)] rounded-lg border border-white/10">
+                    <span class="text-[var(--accent-green)]">5</span> Simulators
+                </div>
+                <div class="px-4 py-2 bg-[var(--bg-secondary)] rounded-lg border border-white/10">
+                    <span class="text-[var(--accent-purple)]">2</span> POVs
+                </div>
+                <div class="px-4 py-2 bg-[var(--bg-secondary)] rounded-lg border border-white/10">
+                    <span class="text-[var(--accent-blue)]">0</span> Equations Required
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Selector Grid -->
+    <section class="py-16 bg-[var(--bg-secondary)]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Choose Your Game</h2>
+                <p class="text-[var(--text-secondary)]">Click a card to launch that simulator</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Game 1: Campaign Commander (Seller POV) -->
+                <div class="game-card seller rounded-2xl p-6" onclick="switchTab('seller')">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[var(--accent-green)]/20 flex items-center justify-center text-2xl">
+                            🎯
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Campaign Commander</h3>
+                            <p class="text-xs text-[var(--accent-green)] mono">SELLER POV</p>
+                        </div>
+                    </div>
+                    <p class="text-[var(--text-secondary)] text-sm mb-4">
+                        You're the marketer. Allocate budget, tune creative, target audiences.
+                        Watch your attention-capture score respond in real-time.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Budget</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Creative</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Targeting</span>
+                    </div>
+                </div>
+
+                <!-- Game 2: Attention Journey (Buyer POV) -->
+                <div class="game-card buyer rounded-2xl p-6" onclick="switchTab('buyer')">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[var(--accent-purple)]/20 flex items-center justify-center text-2xl">
+                            🧠
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Attention Journey</h3>
+                            <p class="text-xs text-[var(--accent-purple)] mono">BUYER POV</p>
+                        </div>
+                    </div>
+                    <p class="text-[var(--text-secondary)] text-sm mb-4">
+                        You're the customer. Set your mood, distractions, needs.
+                        See which marketing breaks through YOUR mental filters.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Mood</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Focus</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Need</span>
+                    </div>
+                </div>
+
+                <!-- Game 3: Forecast Engine (Prospective) -->
+                <div class="game-card prospective rounded-2xl p-6" onclick="switchTab('prospective')">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[var(--accent-blue)]/20 flex items-center justify-center text-2xl">
+                            🔮
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Forecast Engine</h3>
+                            <p class="text-xs text-[var(--accent-blue)] mono">PROSPECTIVE</p>
+                        </div>
+                    </div>
+                    <p class="text-[var(--text-secondary)] text-sm mb-4">
+                        Plan your campaign. Get predicted outcomes over 12 weeks.
+                        Compare scenarios. Optimize before you spend.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Planning</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Forecasting</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">A/B</span>
+                    </div>
+                </div>
+
+                <!-- Game 4: Autopsy Lab (Retrospective) -->
+                <div class="game-card retrospective rounded-2xl p-6" onclick="switchTab('retrospective')">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[var(--accent-yellow)]/20 flex items-center justify-center text-2xl">
+                            🔬
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Autopsy Lab</h3>
+                            <p class="text-xs text-[var(--accent-yellow)] mono">RETROSPECTIVE</p>
+                        </div>
+                    </div>
+                    <p class="text-[var(--text-secondary)] text-sm mb-4">
+                        Input your actual results. Diagnose what went wrong (or right).
+                        Get prescriptions for improvement.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Analysis</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Diagnosis</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">Rx</span>
+                    </div>
+                </div>
+
+                <!-- Game 5: Core Science (Original) -->
+                <div class="game-card core rounded-2xl p-6 md:col-span-2 lg:col-span-1" onclick="switchTab('core')">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[var(--accent-cyan)]/20 flex items-center justify-center text-2xl">
+                            ⚛️
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Gating Function Lab</h3>
+                            <p class="text-xs text-[var(--accent-cyan)] mono">CORE SCIENCE</p>
+                        </div>
+                    </div>
+                    <p class="text-[var(--text-secondary)] text-sm mb-4">
+                        The raw equation. Body × Mind × Soul vs. Suppressors.
+                        For those who want to see the actual math in action.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">B·M·S</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">N+L+Θ</span>
+                        <span class="px-2 py-1 bg-[var(--bg-tertiary)] rounded">P(A)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <section class="bg-[var(--bg-primary)] border-b border-white/10 sticky top-[73px] z-40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex overflow-x-auto">
+                <button class="tab-btn active" data-tab="seller">Campaign Commander</button>
+                <button class="tab-btn" data-tab="buyer">Attention Journey</button>
+                <button class="tab-btn" data-tab="prospective">Forecast Engine</button>
+                <button class="tab-btn" data-tab="retrospective">Autopsy Lab</button>
+                <button class="tab-btn" data-tab="core">Core Science</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULATOR 1: Campaign Commander (Seller POV) -->
+    <section id="panel-seller" class="simulator-panel active py-16 bg-[var(--bg-primary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="inline-block px-4 py-1 bg-[var(--accent-green)]/20 text-[var(--accent-green)] rounded-full text-sm font-medium mb-4">SELLER POV</span>
+                <h2 class="text-4xl font-bold mb-4">Campaign Commander</h2>
+                <p class="text-[var(--text-secondary)] max-w-2xl mx-auto">
+                    You control the marketing levers. Optimize your campaign to maximize attention capture and conversion probability.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Left: Your Inputs -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-green)]/30">
+                    <h3 class="text-xl font-bold text-[var(--accent-green)] mb-6 flex items-center gap-2">
+                        <span>🎮</span> Your Controls
+                    </h3>
+
+                    <!-- Budget -->
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <label class="font-medium tooltip" data-tip="Total campaign spend affects reach">Monthly Budget</label>
+                            <span class="mono text-[var(--accent-green)] font-bold">$<span id="seller-budget-val">10,000</span></span>
+                        </div>
+                        <input type="range" min="1000" max="100000" value="10000" step="1000" id="seller-budget"
+                               class="w-full bg-[var(--bg-tertiary)]" style="accent-color: var(--accent-green);">
+                        <div class="flex justify-between text-xs text-[var(--text-muted)] mt-1">
+                            <span>$1K</span>
+                            <span>$100K</span>
+                        </div>
+                    </div>
+
+                    <!-- Creative Quality -->
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <label class="font-medium tooltip" data-tip="Production value, design, copy quality">Creative Quality</label>
+                            <span class="mono text-[var(--accent-green)] font-bold"><span id="seller-creative-val">60</span>%</span>
+                        </div>
+                        <input type="range" min="10" max="100" value="60" id="seller-creative"
+                               class="w-full bg-[var(--bg-tertiary)]" style="accent-color: var(--accent-green);">
+                        <p class="text-xs text-[var(--text-muted)] mt-1">Maps to Body (B) in equation</p>
+                    </div>
+
+                    <!-- Targeting Precision -->
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <label class="font-medium tooltip" data-tip="How well you match intent">Targeting Precision</label>
+                            <span class="mono text-[var(--accent-green)] font-bold"><span id="seller-targeting-val">50</span>%</span>
+                        </div>
+                        <input type="range" min="10" max="100" value="50" id="seller-targeting"
+                               class="w-full bg-[var(--bg-tertiary)]" style="accent-color: var(--accent-green);">
+                        <p class="text-xs text-[var(--text-muted)] mt-1">Maps to Mind (M) in equation</p>
+                    </div>
+
+                    <!-- Brand Authenticity -->
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <label class="font-medium tooltip" data-tip="Identity resonance with audience">Brand Authenticity</label>
+                            <span class="mono text-[var(--accent-green)] font-bold"><span id="seller-authenticity-val">40</span>%</span>
+                        </div>
+                        <input type="range" min="10" max="100" value="40" id="seller-authenticity"
+                               class="w-full bg-[var(--bg-tertiary)]" style="accent-color: var(--accent-green);">
+                        <p class="text-xs text-[var(--text-muted)] mt-1">Maps to Soul (S) - THE MULTIPLIER</p>
+                    </div>
+
+                    <!-- Channel Selection -->
+                    <div>
+                        <label class="font-medium block mb-3">Primary Channel</label>
+                        <select id="seller-channel" class="w-full bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-3 text-white">
+                            <option value="28">TikTok (Noise: 28)</option>
+                            <option value="22">Instagram (Noise: 22)</option>
+                            <option value="18">Facebook (Noise: 18)</option>
+                            <option value="12" selected>YouTube (Noise: 12)</option>
+                            <option value="8">LinkedIn (Noise: 8)</option>
+                            <option value="4">Email (Noise: 4)</option>
+                            <option value="2">Direct Mail (Noise: 2)</option>
+                        </select>
+                        <p class="text-xs text-[var(--text-muted)] mt-1">Higher noise = harder to break through</p>
+                    </div>
+                </div>
+
+                <!-- Center: Score Dashboard -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-purple)]/30">
+                    <h3 class="text-xl font-bold text-center mb-8">Your Campaign Score</h3>
+
+                    <!-- Main Gauge -->
+                    <div class="gauge-container mb-4">
+                        <div class="gauge-bg"></div>
+                        <div class="gauge-needle" id="seller-gauge" style="transform: rotate(-90deg);"></div>
+                    </div>
+
+                    <div class="text-center mb-8">
+                        <div class="mono text-5xl font-bold mb-2" id="seller-score">42</div>
+                        <p class="text-[var(--text-muted)]">Attention Capture Score</p>
+                    </div>
+
+                    <!-- Level Badge -->
+                    <div class="text-center mb-8">
+                        <div class="level-badge bg-[var(--accent-yellow)]/20 text-[var(--accent-yellow)] inline-flex" id="seller-level">
+                            <span>🥉</span>
+                            <span>BRONZE MARKETER</span>
+                        </div>
+                    </div>
+
+                    <!-- Breakdown -->
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Signal Strength</span>
+                                <span class="mono" id="seller-signal">0.12</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-[var(--accent-green)] to-[var(--accent-blue)]" id="seller-signal-bar" style="width: 12%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>P(Awareness)</span>
+                                <span class="mono" id="seller-awareness">34%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-purple)]" id="seller-awareness-bar" style="width: 34%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Est. Conversions</span>
+                                <span class="mono" id="seller-conversions">127</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-[var(--accent-purple)] to-[var(--accent-yellow)]" id="seller-conversions-bar" style="width: 25%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Insights -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-blue)]/30">
+                    <h3 class="text-xl font-bold text-[var(--accent-blue)] mb-6 flex items-center gap-2">
+                        <span>💡</span> AI Insights
+                    </h3>
+
+                    <div class="space-y-4" id="seller-insights">
+                        <div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-yellow)]">
+                            <p class="font-medium text-[var(--accent-yellow)] mb-1">⚠️ Weak Link: Soul</p>
+                            <p class="text-sm text-[var(--text-secondary)]">Your brand authenticity is bottlenecking performance. Increase from 40% to 70% to unlock 2.3x higher awareness.</p>
+                        </div>
+
+                        <div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-green)]">
+                            <p class="font-medium text-[var(--accent-green)] mb-1">✓ Strong: Creative</p>
+                            <p class="text-sm text-[var(--text-secondary)]">Creative quality at 60% is above average. Consider video &gt;15 seconds for 1.5s encoding threshold.</p>
+                        </div>
+
+                        <div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-purple)]">
+                            <p class="font-medium text-[var(--accent-purple)] mb-1">🎯 Recommendation</p>
+                            <p class="text-sm text-[var(--text-secondary)]">Switch to Email (Noise: 4) to reduce denominator by 8 points. Same budget, 2x breakthrough.</p>
+                        </div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="mt-8">
+                        <h4 class="font-medium mb-4 text-[var(--text-muted)]">Achievements</h4>
+                        <div class="space-y-3">
+                            <div class="achievement" id="seller-ach-1">
+                                <span class="text-2xl">🎖️</span>
+                                <div>
+                                    <p class="font-medium text-sm">Soul Master</p>
+                                    <p class="text-xs text-[var(--text-muted)]">Reach 80% authenticity</p>
+                                </div>
+                            </div>
+                            <div class="achievement" id="seller-ach-2">
+                                <span class="text-2xl">🏆</span>
+                                <div>
+                                    <p class="font-medium text-sm">Noise Ninja</p>
+                                    <p class="text-xs text-[var(--text-muted)]">Score 70+ on high-noise channel</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULATOR 2: Attention Journey (Buyer POV) -->
+    <section id="panel-buyer" class="simulator-panel py-16 bg-[var(--bg-primary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="inline-block px-4 py-1 bg-[var(--accent-purple)]/20 text-[var(--accent-purple)] rounded-full text-sm font-medium mb-4">BUYER POV</span>
+                <h2 class="text-4xl font-bold mb-4">Attention Journey</h2>
+                <p class="text-[var(--text-secondary)] max-w-2xl mx-auto">
+                    You are the customer. Set your mental state. See what marketing actually breaks through your cognitive filters.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Left: Your State -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-purple)]/30">
+                    <h3 class="text-xl font-bold text-[var(--accent-purple)] mb-6 flex items-center gap-2">
+                        <span>🧠</span> Your Mental State
+                    </h3>
+
+                    <!-- Current Mood -->
+                    <div class="mb-8">
+                        <label class="font-medium block mb-3">Current Mood</label>
+                        <div class="grid grid-cols-5 gap-2">
+                            <button class="mood-btn p-3 bg-[var(--bg-tertiary)] rounded-lg text-center hover:bg-[var(--accent-purple)]/20 transition" data-mood="1">😫<br><span class="text-xs">Awful</span></button>
+                            <button class="mood-btn p-3 bg-[var(--bg-tertiary)] rounded-lg text-center hover:bg-[var(--accent-purple)]/20 transition" data-mood="2">😕<br><span class="text-xs">Bad</span></button>
+                            <button class="mood-btn p-3 bg-[var(--bg-tertiary)] rounded-lg text-center hover:bg-[var(--accent-purple)]/20 transition active" data-mood="3" style="background: var(--accent-purple); opacity: 0.3;">😐<br><span class="text-xs">Meh</span></button>
+                            <button class="mood-btn p-3 bg-[var(--bg-tertiary)] rounded-lg text-center hover:bg-[var(--accent-purple)]/20 transition" data-mood="4">🙂<br><span class="text-xs">Good</span></button>
+                            <button class="mood-btn p-3 bg-[var(--bg-tertiary)] rounded-lg text-center hover:bg-[var(--accent-purple)]/20 transition" data-mood="5">😄<br><span class="text-xs">Great</span></button>
+                        </div>
+                        <p class="text-xs text-[var(--text-muted)] mt-2">Affects cognitive load capacity</p>
+                    </div>
+
+                    <!-- Task Focus -->
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <label class="font-medium">Task Focus Level</label>
+                            <span class="mono text-[var(--accent-purple)] font-bold"><span id="buyer-focus-val">5</span>/10</span>
+                        </div>
+                        <input type="range" min="1" max="10" value="5" id="buyer-focus"
+                               class="w-full bg-[var(--bg-tertiary)]" style="accent-color: var(--accent-purple);">
+                        <p class="text-xs text-[var(--text-muted)] mt-1">High focus = higher barrier for interruption</p>
+                    </div>
+
+                    <!-- Purchase Need -->
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <label class="font-medium">Purchase Need Urgency</label>
+                            <span class="mono text-[var(--accent-purple)] font-bold"><span id="buyer-need-val">30</span>%</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="30" id="buyer-need"
+                               class="w-full bg-[var(--bg-tertiary)]" style="accent-color: var(--accent-purple);">
+                        <p class="text-xs text-[var(--text-muted)] mt-1">Active need = higher relevance weight</p>
+                    </div>
+
+                    <!-- Brand Familiarity -->
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <label class="font-medium">Brand Familiarity</label>
+                            <span class="mono text-[var(--accent-purple)] font-bold"><span id="buyer-familiarity-val">20</span>%</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="20" id="buyer-familiarity"
+                               class="w-full bg-[var(--bg-tertiary)]" style="accent-color: var(--accent-purple);">
+                        <p class="text-xs text-[var(--text-muted)] mt-1">Prior exposure = lower threshold</p>
+                    </div>
+
+                    <!-- Environment -->
+                    <div>
+                        <label class="font-medium block mb-3">Current Environment</label>
+                        <select id="buyer-environment" class="w-full bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-3 text-white">
+                            <option value="2">Quiet home office</option>
+                            <option value="5">Living room with TV</option>
+                            <option value="8" selected>Public transit</option>
+                            <option value="12">Busy cafe</option>
+                            <option value="18">Scrolling in bed</option>
+                            <option value="25">Multi-screen chaos</option>
+                        </select>
+                        <p class="text-xs text-[var(--text-muted)] mt-1">Environmental noise factor</p>
+                    </div>
+                </div>
+
+                <!-- Center: What Gets Through -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-cyan)]/30">
+                    <h3 class="text-xl font-bold text-center mb-8">What Breaks Through?</h3>
+
+                    <!-- Attention Meter -->
+                    <div class="mb-8">
+                        <div class="text-center mb-4">
+                            <span class="mono text-6xl font-bold" id="buyer-attention">27%</span>
+                            <p class="text-[var(--text-muted)]">of ads reach your awareness</p>
+                        </div>
+
+                        <div class="relative h-8 bg-[var(--bg-tertiary)] rounded-full overflow-hidden">
+                            <div class="absolute inset-0 flex">
+                                <div class="h-full bg-[var(--accent-red)]" id="buyer-blocked-bar" style="width: 73%;"></div>
+                                <div class="h-full bg-[var(--accent-green)]" id="buyer-passed-bar" style="width: 27%;"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-xs mt-2">
+                            <span class="text-[var(--accent-red)]">Filtered out</span>
+                            <span class="text-[var(--accent-green)]">Gets through</span>
+                        </div>
+                    </div>
+
+                    <!-- What Types Break Through -->
+                    <div class="space-y-4 mb-8">
+                        <h4 class="font-medium text-[var(--text-muted)]">Breakthrough by Type</h4>
+
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">🎬</span>
+                            <div class="flex-1">
+                                <div class="flex justify-between text-sm">
+                                    <span>Video ads</span>
+                                    <span id="buyer-video">45%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill bg-[var(--accent-blue)]" id="buyer-video-bar" style="width: 45%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">🖼️</span>
+                            <div class="flex-1">
+                                <div class="flex justify-between text-sm">
+                                    <span>Static images</span>
+                                    <span id="buyer-image">22%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill bg-[var(--accent-purple)]" id="buyer-image-bar" style="width: 22%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">📝</span>
+                            <div class="flex-1">
+                                <div class="flex justify-between text-sm">
+                                    <span>Text only</span>
+                                    <span id="buyer-text">12%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill bg-[var(--accent-yellow)]" id="buyer-text-bar" style="width: 12%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust Building -->
+                    <div class="p-4 bg-[var(--bg-tertiary)] rounded-lg">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Trust Threshold</span>
+                            <span class="mono text-[var(--accent-green)]" id="buyer-trust">6 touches</span>
+                        </div>
+                        <p class="text-xs text-[var(--text-secondary)]">
+                            Based on your familiarity, you need <span id="buyer-trust-inline">6</span> positive exposures before considering purchase.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Your Decision Journey -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-green)]/30">
+                    <h3 class="text-xl font-bold text-[var(--accent-green)] mb-6 flex items-center gap-2">
+                        <span>🛤️</span> Your Journey
+                    </h3>
+
+                    <!-- Journey Stages -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-[var(--accent-green)] flex items-center justify-center font-bold">1</div>
+                            <div class="flex-1">
+                                <p class="font-medium">Unaware</p>
+                                <p class="text-xs text-[var(--text-muted)]">Potential Φ = 0</p>
+                            </div>
+                            <span class="text-[var(--accent-green)]">✓</span>
+                        </div>
+
+                        <div class="w-0.5 h-6 bg-[var(--bg-tertiary)] ml-5"></div>
+
+                        <div class="flex items-center gap-4" id="buyer-stage-aware">
+                            <div class="w-10 h-10 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center font-bold">2</div>
+                            <div class="flex-1">
+                                <p class="font-medium">Aware</p>
+                                <p class="text-xs text-[var(--text-muted)]">Gradient ∇Φ active</p>
+                            </div>
+                            <span class="text-[var(--text-muted)]" id="buyer-aware-check">○</span>
+                        </div>
+
+                        <div class="w-0.5 h-6 bg-[var(--bg-tertiary)] ml-5"></div>
+
+                        <div class="flex items-center gap-4" id="buyer-stage-consider">
+                            <div class="w-10 h-10 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center font-bold">3</div>
+                            <div class="flex-1">
+                                <p class="font-medium">Considering</p>
+                                <p class="text-xs text-[var(--text-muted)]">Memory loop ∇×F</p>
+                            </div>
+                            <span class="text-[var(--text-muted)]" id="buyer-consider-check">○</span>
+                        </div>
+
+                        <div class="w-0.5 h-6 bg-[var(--bg-tertiary)] ml-5"></div>
+
+                        <div class="flex items-center gap-4" id="buyer-stage-decide">
+                            <div class="w-10 h-10 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center font-bold">4</div>
+                            <div class="flex-1">
+                                <p class="font-medium">Ready to Buy</p>
+                                <p class="text-xs text-[var(--text-muted)]">Curvature lock ∇²Φ</p>
+                            </div>
+                            <span class="text-[var(--text-muted)]" id="buyer-decide-check">○</span>
+                        </div>
+                    </div>
+
+                    <!-- Decision Probability -->
+                    <div class="mt-8 p-4 bg-gradient-to-r from-[var(--accent-purple)]/10 to-[var(--accent-green)]/10 rounded-lg border border-[var(--accent-purple)]/30">
+                        <p class="text-center text-sm text-[var(--text-muted)] mb-2">If the right offer appeared NOW</p>
+                        <p class="text-center mono text-4xl font-bold" id="buyer-purchase-prob">18%</p>
+                        <p class="text-center text-sm text-[var(--text-muted)]">chance you'd convert</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULATOR 3: Forecast Engine (Prospective) -->
+    <section id="panel-prospective" class="simulator-panel py-16 bg-[var(--bg-primary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="inline-block px-4 py-1 bg-[var(--accent-blue)]/20 text-[var(--accent-blue)] rounded-full text-sm font-medium mb-4">PROSPECTIVE</span>
+                <h2 class="text-4xl font-bold mb-4">Forecast Engine</h2>
+                <p class="text-[var(--text-secondary)] max-w-2xl mx-auto">
+                    Plan your campaign. See predicted performance over 12 weeks. Compare scenarios before spending.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-4 gap-6">
+                <!-- Scenario A -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-blue)]/30">
+                    <h3 class="text-lg font-bold text-[var(--accent-blue)] mb-4">Scenario A</h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)]">Weekly Budget</label>
+                            <input type="number" value="5000" id="forecast-a-budget" class="w-full bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-2 mt-1 text-white mono">
+                        </div>
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)]">Creative Score</label>
+                            <input type="range" min="10" max="100" value="60" id="forecast-a-creative" class="w-full" style="accent-color: var(--accent-blue);">
+                        </div>
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)]">Targeting Score</label>
+                            <input type="range" min="10" max="100" value="50" id="forecast-a-targeting" class="w-full" style="accent-color: var(--accent-blue);">
+                        </div>
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)]">Authenticity Score</label>
+                            <input type="range" min="10" max="100" value="40" id="forecast-a-soul" class="w-full" style="accent-color: var(--accent-blue);">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario B -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-purple)]/30">
+                    <h3 class="text-lg font-bold text-[var(--accent-purple)] mb-4">Scenario B</h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)]">Weekly Budget</label>
+                            <input type="number" value="5000" id="forecast-b-budget" class="w-full bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-2 mt-1 text-white mono">
+                        </div>
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)]">Creative Score</label>
+                            <input type="range" min="10" max="100" value="50" id="forecast-b-creative" class="w-full" style="accent-color: var(--accent-purple);">
+                        </div>
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)]">Targeting Score</label>
+                            <input type="range" min="10" max="100" value="60" id="forecast-b-targeting" class="w-full" style="accent-color: var(--accent-purple);">
+                        </div>
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)]">Authenticity Score</label>
+                            <input type="range" min="10" max="100" value="70" id="forecast-b-soul" class="w-full" style="accent-color: var(--accent-purple);">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forecast Chart -->
+                <div class="lg:col-span-2 bg-[var(--bg-secondary)] rounded-2xl p-6">
+                    <h3 class="text-lg font-bold mb-4">12-Week Forecast</h3>
+
+                    <!-- Simple ASCII-style chart -->
+                    <div class="bg-[var(--bg-tertiary)] rounded-lg p-4 mono text-xs h-64 flex flex-col justify-end" id="forecast-chart">
+                        <div class="flex items-end justify-around h-48 border-b border-l border-white/20 relative">
+                            <!-- Y-axis labels -->
+                            <div class="absolute left-0 top-0 -translate-x-full pr-2 text-[var(--text-muted)]">100</div>
+                            <div class="absolute left-0 top-1/2 -translate-x-full pr-2 text-[var(--text-muted)]">50</div>
+                            <div class="absolute left-0 bottom-0 -translate-x-full pr-2 text-[var(--text-muted)]">0</div>
+
+                            <!-- Bars for each week -->
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 20%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 25%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 28%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 35%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 35%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 48%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 40%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 58%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 43%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 65%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 45%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 72%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 46%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 78%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 47%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 82%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 48%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 85%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 48%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 88%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 49%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 90%;"></div>
+                            </div>
+                            <div class="flex-1 flex items-end justify-center gap-1">
+                                <div class="w-3 bg-[var(--accent-blue)] forecast-bar-a" style="height: 50%;"></div>
+                                <div class="w-3 bg-[var(--accent-purple)] forecast-bar-b" style="height: 92%;"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-around text-[var(--text-muted)] pt-2">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+                            <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+                        </div>
+                        <p class="text-center text-[var(--text-muted)] mt-2">Week</p>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="flex justify-center gap-8 mt-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-[var(--accent-blue)] rounded"></div>
+                            <span class="text-sm">Scenario A</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-[var(--accent-purple)] rounded"></div>
+                            <span class="text-sm">Scenario B</span>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="bg-[var(--bg-tertiary)] rounded-lg p-4 text-center">
+                            <p class="text-sm text-[var(--text-muted)]">Scenario A @ Week 12</p>
+                            <p class="mono text-2xl font-bold text-[var(--accent-blue)]" id="forecast-a-result">247</p>
+                            <p class="text-xs text-[var(--text-muted)]">conversions</p>
+                        </div>
+                        <div class="bg-[var(--bg-tertiary)] rounded-lg p-4 text-center">
+                            <p class="text-sm text-[var(--text-muted)]">Scenario B @ Week 12</p>
+                            <p class="mono text-2xl font-bold text-[var(--accent-purple)]" id="forecast-b-result">412</p>
+                            <p class="text-xs text-[var(--text-muted)]">conversions</p>
+                        </div>
+                    </div>
+
+                    <!-- Winner -->
+                    <div class="mt-4 p-4 bg-gradient-to-r from-[var(--accent-purple)]/20 to-[var(--accent-green)]/20 rounded-lg border border-[var(--accent-purple)]/30 text-center">
+                        <p class="text-lg font-bold">Scenario B wins by <span class="text-[var(--accent-green)]" id="forecast-diff">+67%</span></p>
+                        <p class="text-sm text-[var(--text-secondary)]">Higher Soul score compounds over time</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULATOR 4: Autopsy Lab (Retrospective) -->
+    <section id="panel-retrospective" class="simulator-panel py-16 bg-[var(--bg-primary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="inline-block px-4 py-1 bg-[var(--accent-yellow)]/20 text-[var(--accent-yellow)] rounded-full text-sm font-medium mb-4">RETROSPECTIVE</span>
+                <h2 class="text-4xl font-bold mb-4">Autopsy Lab</h2>
+                <p class="text-[var(--text-secondary)] max-w-2xl mx-auto">
+                    Input your actual campaign results. Reverse-engineer what happened. Get prescriptions for improvement.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Input: Actual Results -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-yellow)]/30">
+                    <h3 class="text-xl font-bold text-[var(--accent-yellow)] mb-6 flex items-center gap-2">
+                        <span>📊</span> Your Actual Results
+                    </h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)] block mb-2">Total Spend</label>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[var(--text-muted)]">$</span>
+                                <input type="number" value="25000" id="autopsy-spend" class="flex-1 bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-3 text-white mono">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)] block mb-2">Impressions</label>
+                            <input type="number" value="500000" id="autopsy-impressions" class="w-full bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-3 text-white mono">
+                        </div>
+
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)] block mb-2">Clicks</label>
+                            <input type="number" value="5000" id="autopsy-clicks" class="w-full bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-3 text-white mono">
+                        </div>
+
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)] block mb-2">Conversions</label>
+                            <input type="number" value="75" id="autopsy-conversions" class="w-full bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-3 text-white mono">
+                        </div>
+
+                        <div>
+                            <label class="text-sm text-[var(--text-muted)] block mb-2">Primary Channel</label>
+                            <select id="autopsy-channel" class="w-full bg-[var(--bg-tertiary)] border border-white/10 rounded-lg p-3 text-white">
+                                <option value="social">Social Media</option>
+                                <option value="search">Paid Search</option>
+                                <option value="display">Display</option>
+                                <option value="email">Email</option>
+                                <option value="video">Video</option>
+                            </select>
+                        </div>
+
+                        <button onclick="runAutopsy()" class="w-full py-3 bg-[var(--accent-yellow)] text-black font-bold rounded-lg hover:bg-yellow-400 transition">
+                            Run Autopsy 🔬
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Diagnosis -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-red)]/30">
+                    <h3 class="text-xl font-bold text-[var(--accent-red)] mb-6 flex items-center gap-2">
+                        <span>🩺</span> Diagnosis
+                    </h3>
+
+                    <!-- Health Score -->
+                    <div class="text-center mb-8">
+                        <div class="inline-block p-6 rounded-full border-4 border-[var(--accent-yellow)]" id="autopsy-health-ring">
+                            <span class="mono text-4xl font-bold" id="autopsy-health">C+</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] mt-2">Campaign Health Grade</p>
+                    </div>
+
+                    <!-- Metrics -->
+                    <div class="space-y-4">
+                        <div class="p-3 bg-[var(--bg-tertiary)] rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="text-sm">CTR</span>
+                                <span class="mono font-bold" id="autopsy-ctr">1.00%</span>
+                            </div>
+                            <p class="text-xs text-[var(--text-muted)]">Industry avg: 0.89%</p>
+                        </div>
+
+                        <div class="p-3 bg-[var(--bg-tertiary)] rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="text-sm">CVR</span>
+                                <span class="mono font-bold" id="autopsy-cvr">1.50%</span>
+                            </div>
+                            <p class="text-xs text-[var(--text-muted)]">Industry avg: 2.35%</p>
+                        </div>
+
+                        <div class="p-3 bg-[var(--bg-tertiary)] rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="text-sm">CPA</span>
+                                <span class="mono font-bold" id="autopsy-cpa">$333.33</span>
+                            </div>
+                            <p class="text-xs text-[var(--text-muted)]">Target: &lt;$200</p>
+                        </div>
+
+                        <div class="p-3 bg-[var(--bg-tertiary)] rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="text-sm">CPM</span>
+                                <span class="mono font-bold" id="autopsy-cpm">$50.00</span>
+                            </div>
+                            <p class="text-xs text-[var(--text-muted)]">Platform avg: $12</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prescription -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-green)]/30">
+                    <h3 class="text-xl font-bold text-[var(--accent-green)] mb-6 flex items-center gap-2">
+                        <span>💊</span> Prescription
+                    </h3>
+
+                    <div class="space-y-4" id="autopsy-rx">
+                        <div class="p-4 bg-[var(--accent-red)]/10 rounded-lg border border-[var(--accent-red)]/30">
+                            <p class="font-bold text-[var(--accent-red)] mb-2">🚨 Critical: CPM Too High</p>
+                            <p class="text-sm text-[var(--text-secondary)]">Your CPM is 4x industry average. This indicates either poor targeting (paying for wrong eyeballs) or creative fatigue.</p>
+                            <p class="text-sm font-medium mt-2">Rx: Narrow audience by 50%, refresh creative</p>
+                        </div>
+
+                        <div class="p-4 bg-[var(--accent-yellow)]/10 rounded-lg border border-[var(--accent-yellow)]/30">
+                            <p class="font-bold text-[var(--accent-yellow)] mb-2">⚠️ Warning: CVR Below Benchmark</p>
+                            <p class="text-sm text-[var(--text-secondary)]">Traffic quality is good (CTR above avg) but not converting. Landing page or offer mismatch suspected.</p>
+                            <p class="text-sm font-medium mt-2">Rx: A/B test landing page, check message consistency</p>
+                        </div>
+
+                        <div class="p-4 bg-[var(--accent-green)]/10 rounded-lg border border-[var(--accent-green)]/30">
+                            <p class="font-bold text-[var(--accent-green)] mb-2">✓ Strength: CTR Healthy</p>
+                            <p class="text-sm text-[var(--text-secondary)]">Creative is generating interest. Problem is downstream in the funnel.</p>
+                            <p class="text-sm font-medium mt-2">Rx: Keep creative, fix funnel</p>
+                        </div>
+                    </div>
+
+                    <!-- Projected Fix -->
+                    <div class="mt-6 p-4 bg-gradient-to-r from-[var(--accent-green)]/10 to-[var(--accent-blue)]/10 rounded-lg border border-[var(--accent-green)]/30">
+                        <p class="text-center text-sm text-[var(--text-muted)] mb-2">If you apply all prescriptions:</p>
+                        <p class="text-center mono text-3xl font-bold text-[var(--accent-green)]" id="autopsy-projected">+89%</p>
+                        <p class="text-center text-sm text-[var(--text-muted)]">projected conversion improvement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULATOR 5: Core Science (Original Gating Function) -->
+    <section id="panel-core" class="simulator-panel py-16 bg-[var(--bg-primary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="inline-block px-4 py-1 bg-[var(--accent-cyan)]/20 text-[var(--accent-cyan)] rounded-full text-sm font-medium mb-4">CORE SCIENCE</span>
+                <h2 class="text-4xl font-bold mb-4">Gating Function Lab</h2>
+                <p class="text-[var(--text-secondary)] max-w-2xl mx-auto">
+                    The raw equation. For those who want to see the actual mathematics in action.
+                </p>
+
+                <!-- Equation Display -->
+                <div class="mt-8 inline-block bg-[var(--bg-secondary)] rounded-xl p-6 border border-[var(--accent-cyan)]/30">
+                    <p class="mono text-xl text-[var(--accent-cyan)]">𝒜 = (B · M · S) / (N + L + Θ)</p>
+                    <p class="mono text-sm text-[var(--text-muted)] mt-2">P(Awareness) = σ(α · 𝒜 - β)</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Drivers Panel -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-green)]/30">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-3 h-3 rounded-full bg-[var(--accent-green)]"></div>
+                        <h3 class="text-lg font-bold text-[var(--accent-green)]">SIGNAL DRIVERS</h3>
+                    </div>
+                    <p class="text-[var(--text-muted)] text-sm mb-6">Multiplicative. If ANY hits zero, signal collapses.</p>
+
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-medium">B (Body)</label>
+                                <span class="mono text-[var(--accent-green)] font-bold" id="core-val-b">0.34</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="34" id="core-slider-b" class="w-full" style="accent-color: var(--accent-green);">
+                            <p class="text-xs text-[var(--text-muted)] mt-1">Sensory strength × Viewability × Duration</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-medium">M (Mind)</label>
+                                <span class="mono text-[var(--accent-green)] font-bold" id="core-val-m">0.50</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="50" id="core-slider-m" class="w-full" style="accent-color: var(--accent-green);">
+                            <p class="text-xs text-[var(--text-muted)] mt-1">Intent match × Prediction error</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-medium">S (Soul)</label>
+                                <span class="mono text-[var(--accent-green)] font-bold" id="core-val-s">0.40</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="40" id="core-slider-s" class="w-full" style="accent-color: var(--accent-green);">
+                            <p class="text-xs text-[var(--text-muted)] mt-1">Identity congruence × Story match</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-cyan)]/30">
+                    <div class="text-center">
+                        <p class="mono text-[var(--text-muted)] text-sm mb-4">INSTANTANEOUS ACTIVATION</p>
+
+                        <div class="score-display rounded-xl p-6 mb-6">
+                            <p class="mono text-5xl font-bold" id="core-output-a">0.00304</p>
+                            <p class="text-sm text-[var(--text-muted)] mt-2">𝒜 value</p>
+                        </div>
+
+                        <div class="score-display rounded-xl p-6">
+                            <p class="mono text-6xl font-bold" id="core-output-p" style="color: var(--accent-blue);">41.0%</p>
+                            <p class="text-sm text-[var(--text-muted)] mt-2">P(Awareness)</p>
+                        </div>
+
+                        <p class="mono text-xs text-[var(--text-muted)] mt-6">α=50, β=0.5</p>
+                    </div>
+                </div>
+
+                <!-- Suppressors Panel -->
+                <div class="bg-[var(--bg-secondary)] rounded-2xl p-6 border border-[var(--accent-red)]/30">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-3 h-3 rounded-full bg-[var(--accent-red)]"></div>
+                        <h3 class="text-lg font-bold text-[var(--accent-red)]">SUPPRESSORS</h3>
+                    </div>
+                    <p class="text-[var(--text-muted)] text-sm mb-6">Additive. Compete for cognitive bandwidth.</p>
+
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-medium">N (Noise)</label>
+                                <span class="mono text-[var(--accent-red)] font-bold" id="core-val-n">20</span>
+                            </div>
+                            <input type="range" min="1" max="100" value="20" id="core-slider-n" class="w-full" style="accent-color: var(--accent-red);">
+                            <p class="text-xs text-[var(--text-muted)] mt-1">TikTok≈28 | YouTube≈12 | TV≈4</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-medium">L (Load)</label>
+                                <span class="mono text-[var(--accent-red)] font-bold" id="core-val-l">2</span>
+                            </div>
+                            <input type="range" min="1" max="10" value="2" id="core-slider-l" class="w-full" style="accent-color: var(--accent-red);">
+                            <p class="text-xs text-[var(--text-muted)] mt-1">Cowan's 4±1 chunks</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-medium">Θ (Threshold)</label>
+                                <span class="mono text-[var(--accent-red)] font-bold" id="core-val-theta">0.1</span>
+                            </div>
+                            <input type="range" min="1" max="20" value="1" id="core-slider-theta" class="w-full" style="accent-color: var(--accent-red);">
+                            <p class="text-xs text-[var(--text-muted)] mt-1">Personal habituation barrier</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-[var(--text-secondary)]">
+                    <span class="text-[var(--accent-green)]">↑</span> Push Soul to 0.80 → watch P(Awareness) explode.
+                    <span class="text-[var(--accent-red)]">↑</span> Crank Noise to 50 → watch the denominator win.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-[var(--bg-secondary)] border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl font-bold bg-gradient-to-r from-[var(--accent-purple)] to-[var(--accent-green)] bg-clip-text text-transparent">f(x)</span>
+                    <span class="text-[var(--text-muted)]">Pro-Marketing Simulators © 2025</span>
+                </div>
+                <div class="flex items-center gap-6 text-sm text-[var(--text-muted)]">
+                    <a href="/" class="hover:text-white transition">Home</a>
+                    <a href="https://github.com/FunnelFunction/0.0_git_funnelfunction_marketing_Principals" target="_blank" class="hover:text-white transition">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Tab switching
+        function switchTab(tabName) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabName);
+            });
+
+            // Update panels
+            document.querySelectorAll('.simulator-panel').forEach(panel => {
+                panel.classList.toggle('active', panel.id === 'panel-' + tabName);
+            });
+
+            // Scroll to tabs
+            document.querySelector('.tab-btn').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Tab button click handlers
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+        });
+
+        // ============ SIMULATOR 1: Campaign Commander ============
+        const sellerInputs = ['budget', 'creative', 'targeting', 'authenticity', 'channel'];
+
+        function updateSellerSimulator() {
+            const budget = parseInt(document.getElementById('seller-budget').value);
+            const creative = parseInt(document.getElementById('seller-creative').value) / 100;
+            const targeting = parseInt(document.getElementById('seller-targeting').value) / 100;
+            const authenticity = parseInt(document.getElementById('seller-authenticity').value) / 100;
+            const noise = parseInt(document.getElementById('seller-channel').value);
+
+            // Update display values
+            document.getElementById('seller-budget-val').textContent = budget.toLocaleString();
+            document.getElementById('seller-creative-val').textContent = Math.round(creative * 100);
+            document.getElementById('seller-targeting-val').textContent = Math.round(targeting * 100);
+            document.getElementById('seller-authenticity-val').textContent = Math.round(authenticity * 100);
+
+            // Calculate signal
+            const signal = creative * targeting * authenticity;
+            const denominator = noise + 2 + 0.1; // noise + load + threshold
+            const A = signal / denominator;
+            const P = 1 / (1 + Math.exp(-(50 * A - 0.5)));
+
+            // Score (0-100)
+            const score = Math.round(P * 100);
+
+            // Estimated reach and conversions
+            const reach = budget * 20; // $1 = 20 impressions
+            const attentionReach = reach * P;
+            const conversions = Math.round(attentionReach * 0.02); // 2% of attention converts
+
+            // Update displays
+            document.getElementById('seller-signal').textContent = signal.toFixed(3);
+            document.getElementById('seller-signal-bar').style.width = (signal * 100) + '%';
+
+            document.getElementById('seller-awareness').textContent = (P * 100).toFixed(1) + '%';
+            document.getElementById('seller-awareness-bar').style.width = (P * 100) + '%';
+
+            document.getElementById('seller-conversions').textContent = conversions.toLocaleString();
+            document.getElementById('seller-conversions-bar').style.width = Math.min(conversions / 5, 100) + '%';
+
+            document.getElementById('seller-score').textContent = score;
+
+            // Gauge rotation (-90 to 90 degrees)
+            const gaugeAngle = -90 + (score / 100) * 180;
+            document.getElementById('seller-gauge').style.transform = `rotate(${gaugeAngle}deg)`;
+
+            // Level badge
+            const levelEl = document.getElementById('seller-level');
+            if (score >= 80) {
+                levelEl.innerHTML = '<span>🏆</span><span>LEGENDARY MARKETER</span>';
+                levelEl.className = 'level-badge bg-[var(--accent-purple)]/20 text-[var(--accent-purple)] inline-flex';
+            } else if (score >= 60) {
+                levelEl.innerHTML = '<span>🥇</span><span>GOLD MARKETER</span>';
+                levelEl.className = 'level-badge bg-[var(--accent-yellow)]/20 text-[var(--accent-yellow)] inline-flex';
+            } else if (score >= 40) {
+                levelEl.innerHTML = '<span>🥈</span><span>SILVER MARKETER</span>';
+                levelEl.className = 'level-badge bg-[var(--text-secondary)]/20 text-[var(--text-secondary)] inline-flex';
+            } else {
+                levelEl.innerHTML = '<span>🥉</span><span>BRONZE MARKETER</span>';
+                levelEl.className = 'level-badge bg-[var(--accent-yellow)]/20 text-[var(--accent-yellow)] inline-flex';
+            }
+
+            // Score color
+            const scoreEl = document.getElementById('seller-score');
+            if (score >= 70) scoreEl.style.color = 'var(--accent-green)';
+            else if (score >= 40) scoreEl.style.color = 'var(--accent-blue)';
+            else scoreEl.style.color = 'var(--accent-red)';
+
+            // Update insights based on weakest link
+            updateSellerInsights(creative, targeting, authenticity, noise, score);
+
+            // Check achievements
+            if (authenticity >= 0.8) {
+                document.getElementById('seller-ach-1').classList.add('unlocked');
+            }
+            if (score >= 70 && noise >= 20) {
+                document.getElementById('seller-ach-2').classList.add('unlocked');
+            }
+        }
+
+        function updateSellerInsights(creative, targeting, authenticity, noise, score) {
+            const insights = document.getElementById('seller-insights');
+            let html = '';
+
+            // Find weakest link
+            const min = Math.min(creative, targeting, authenticity);
+
+            if (min === authenticity && authenticity < 0.6) {
+                html += `<div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-yellow)]">
+                    <p class="font-medium text-[var(--accent-yellow)] mb-1">⚠️ Weak Link: Soul</p>
+                    <p class="text-sm text-[var(--text-secondary)]">Brand authenticity at ${Math.round(authenticity*100)}% is bottlenecking. Increase to 70%+ to unlock exponential gains.</p>
+                </div>`;
+            } else if (min === targeting && targeting < 0.6) {
+                html += `<div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-yellow)]">
+                    <p class="font-medium text-[var(--accent-yellow)] mb-1">⚠️ Weak Link: Targeting</p>
+                    <p class="text-sm text-[var(--text-secondary)]">Targeting precision at ${Math.round(targeting*100)}% means you're paying for wrong eyeballs.</p>
+                </div>`;
+            } else if (min === creative && creative < 0.6) {
+                html += `<div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-yellow)]">
+                    <p class="font-medium text-[var(--accent-yellow)] mb-1">⚠️ Weak Link: Creative</p>
+                    <p class="text-sm text-[var(--text-secondary)]">Creative quality at ${Math.round(creative*100)}% fails to capture attention in first 1.5 seconds.</p>
+                </div>`;
+            }
+
+            // Noise recommendation
+            if (noise > 15) {
+                html += `<div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-purple)]">
+                    <p class="font-medium text-[var(--accent-purple)] mb-1">🎯 Channel Tip</p>
+                    <p class="text-sm text-[var(--text-secondary)]">High-noise channel (${noise}). Consider Email (4) or LinkedIn (8) for same budget, 2x breakthrough.</p>
+                </div>`;
+            }
+
+            // Strength
+            const max = Math.max(creative, targeting, authenticity);
+            if (max === authenticity && authenticity >= 0.7) {
+                html += `<div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-green)]">
+                    <p class="font-medium text-[var(--accent-green)] mb-1">✓ Strength: Soul Power</p>
+                    <p class="text-sm text-[var(--text-secondary)]">High authenticity (${Math.round(authenticity*100)}%) is your multiplier. This compounds over time.</p>
+                </div>`;
+            }
+
+            insights.innerHTML = html || `<div class="p-4 bg-[var(--bg-tertiary)] rounded-lg border-l-4 border-[var(--accent-green)]">
+                <p class="font-medium text-[var(--accent-green)] mb-1">✓ Balanced Campaign</p>
+                <p class="text-sm text-[var(--text-secondary)]">All factors are reasonably balanced. Focus on maintaining consistency.</p>
+            </div>`;
+        }
+
+        // Bind seller inputs
+        document.getElementById('seller-budget').addEventListener('input', updateSellerSimulator);
+        document.getElementById('seller-creative').addEventListener('input', updateSellerSimulator);
+        document.getElementById('seller-targeting').addEventListener('input', updateSellerSimulator);
+        document.getElementById('seller-authenticity').addEventListener('input', updateSellerSimulator);
+        document.getElementById('seller-channel').addEventListener('change', updateSellerSimulator);
+
+        // ============ SIMULATOR 2: Buyer Journey ============
+        let buyerMood = 3;
+
+        document.querySelectorAll('.mood-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.mood-btn').forEach(b => b.style.background = '');
+                this.style.background = 'var(--accent-purple)';
+                this.style.opacity = '0.3';
+                buyerMood = parseInt(this.dataset.mood);
+                updateBuyerSimulator();
+            });
+        });
+
+        function updateBuyerSimulator() {
+            const focus = parseInt(document.getElementById('buyer-focus').value);
+            const need = parseInt(document.getElementById('buyer-need').value) / 100;
+            const familiarity = parseInt(document.getElementById('buyer-familiarity').value) / 100;
+            const envNoise = parseInt(document.getElementById('buyer-environment').value);
+
+            // Update displays
+            document.getElementById('buyer-focus-val').textContent = focus;
+            document.getElementById('buyer-need-val').textContent = Math.round(need * 100);
+            document.getElementById('buyer-familiarity-val').textContent = Math.round(familiarity * 100);
+
+            // Calculate cognitive load (higher focus = less capacity for ads)
+            const cognitiveLoad = focus + (5 - buyerMood); // bad mood = higher load
+
+            // Threshold (lower with familiarity)
+            const threshold = 0.5 * (1 - familiarity * 0.5);
+
+            // Relevance boost from need
+            const relevanceBoost = 1 + need;
+
+            // Calculate breakthrough probability
+            const denominator = envNoise + cognitiveLoad + threshold;
+            const avgSignal = 0.5 * relevanceBoost; // average ad signal boosted by need
+            const P = 1 / (1 + Math.exp(-(30 * (avgSignal / denominator) - 0.3)));
+
+            const attention = Math.round(P * 100);
+
+            // Update attention display
+            document.getElementById('buyer-attention').textContent = attention + '%';
+            document.getElementById('buyer-blocked-bar').style.width = (100 - attention) + '%';
+            document.getElementById('buyer-passed-bar').style.width = attention + '%';
+
+            // Type breakthrough rates (video > image > text)
+            const videoRate = Math.min(95, attention + 20);
+            const imageRate = attention;
+            const textRate = Math.max(5, attention - 15);
+
+            document.getElementById('buyer-video').textContent = videoRate + '%';
+            document.getElementById('buyer-video-bar').style.width = videoRate + '%';
+            document.getElementById('buyer-image').textContent = imageRate + '%';
+            document.getElementById('buyer-image-bar').style.width = imageRate + '%';
+            document.getElementById('buyer-text').textContent = textRate + '%';
+            document.getElementById('buyer-text-bar').style.width = textRate + '%';
+
+            // Trust threshold (fewer touches needed with familiarity)
+            const trustTouches = Math.max(2, Math.round(8 * (1 - familiarity * 0.7)));
+            document.getElementById('buyer-trust').textContent = trustTouches + ' touches';
+            document.getElementById('buyer-trust-inline').textContent = trustTouches;
+
+            // Update journey stages
+            const awareCheck = document.getElementById('buyer-aware-check');
+            const considerCheck = document.getElementById('buyer-consider-check');
+            const decideCheck = document.getElementById('buyer-decide-check');
+
+            if (attention >= 30 || familiarity > 0.3) {
+                awareCheck.textContent = '✓';
+                awareCheck.style.color = 'var(--accent-green)';
+                document.getElementById('buyer-stage-aware').querySelector('.w-10').style.background = 'var(--accent-green)';
+            } else {
+                awareCheck.textContent = '○';
+                awareCheck.style.color = 'var(--text-muted)';
+            }
+
+            if ((attention >= 50 || familiarity > 0.5) && need > 0.3) {
+                considerCheck.textContent = '✓';
+                considerCheck.style.color = 'var(--accent-green)';
+                document.getElementById('buyer-stage-consider').querySelector('.w-10').style.background = 'var(--accent-green)';
+            } else {
+                considerCheck.textContent = '○';
+                considerCheck.style.color = 'var(--text-muted)';
+            }
+
+            if (attention >= 70 && need > 0.6 && familiarity > 0.4) {
+                decideCheck.textContent = '✓';
+                decideCheck.style.color = 'var(--accent-green)';
+                document.getElementById('buyer-stage-decide').querySelector('.w-10').style.background = 'var(--accent-green)';
+            } else {
+                decideCheck.textContent = '○';
+                decideCheck.style.color = 'var(--text-muted)';
+            }
+
+            // Purchase probability
+            const purchaseProb = Math.round(need * familiarity * (attention / 100) * 100);
+            document.getElementById('buyer-purchase-prob').textContent = purchaseProb + '%';
+        }
+
+        document.getElementById('buyer-focus').addEventListener('input', updateBuyerSimulator);
+        document.getElementById('buyer-need').addEventListener('input', updateBuyerSimulator);
+        document.getElementById('buyer-familiarity').addEventListener('input', updateBuyerSimulator);
+        document.getElementById('buyer-environment').addEventListener('change', updateBuyerSimulator);
+
+        // ============ SIMULATOR 3: Forecast Engine ============
+        function updateForecast() {
+            const aCreative = parseInt(document.getElementById('forecast-a-creative').value) / 100;
+            const aTargeting = parseInt(document.getElementById('forecast-a-targeting').value) / 100;
+            const aSoul = parseInt(document.getElementById('forecast-a-soul').value) / 100;
+            const aBudget = parseInt(document.getElementById('forecast-a-budget').value);
+
+            const bCreative = parseInt(document.getElementById('forecast-b-creative').value) / 100;
+            const bTargeting = parseInt(document.getElementById('forecast-b-targeting').value) / 100;
+            const bSoul = parseInt(document.getElementById('forecast-b-soul').value) / 100;
+            const bBudget = parseInt(document.getElementById('forecast-b-budget').value);
+
+            // Calculate weekly performance
+            const barsA = document.querySelectorAll('.forecast-bar-a');
+            const barsB = document.querySelectorAll('.forecast-bar-b');
+
+            let cumulativeA = 0;
+            let cumulativeB = 0;
+
+            for (let week = 0; week < 12; week++) {
+                // Soul compounds over time (memory effect)
+                const soulCompoundA = aSoul * (1 + week * 0.05);
+                const soulCompoundB = bSoul * (1 + week * 0.08);
+
+                const signalA = aCreative * aTargeting * Math.min(1, soulCompoundA);
+                const signalB = bCreative * bTargeting * Math.min(1, soulCompoundB);
+
+                const weeklyA = aBudget * 20 * signalA * 0.02;
+                const weeklyB = bBudget * 20 * signalB * 0.02;
+
+                cumulativeA += weeklyA;
+                cumulativeB += weeklyB;
+
+                // Update bars (max height = 100%)
+                const maxConversions = Math.max(cumulativeA, cumulativeB, 500);
+                barsA[week].style.height = (cumulativeA / maxConversions * 100) + '%';
+                barsB[week].style.height = (cumulativeB / maxConversions * 100) + '%';
+            }
+
+            document.getElementById('forecast-a-result').textContent = Math.round(cumulativeA);
+            document.getElementById('forecast-b-result').textContent = Math.round(cumulativeB);
+
+            const diff = ((cumulativeB - cumulativeA) / cumulativeA * 100).toFixed(0);
+            const diffEl = document.getElementById('forecast-diff');
+            diffEl.textContent = (diff > 0 ? '+' : '') + diff + '%';
+            diffEl.style.color = diff > 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+        }
+
+        ['forecast-a-budget', 'forecast-a-creative', 'forecast-a-targeting', 'forecast-a-soul',
+         'forecast-b-budget', 'forecast-b-creative', 'forecast-b-targeting', 'forecast-b-soul'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateForecast);
+        });
+
+        // ============ SIMULATOR 4: Autopsy Lab ============
+        function runAutopsy() {
+            const spend = parseFloat(document.getElementById('autopsy-spend').value);
+            const impressions = parseFloat(document.getElementById('autopsy-impressions').value);
+            const clicks = parseFloat(document.getElementById('autopsy-clicks').value);
+            const conversions = parseFloat(document.getElementById('autopsy-conversions').value);
+
+            // Calculate metrics
+            const ctr = (clicks / impressions * 100).toFixed(2);
+            const cvr = (conversions / clicks * 100).toFixed(2);
+            const cpa = (spend / conversions).toFixed(2);
+            const cpm = (spend / impressions * 1000).toFixed(2);
+
+            document.getElementById('autopsy-ctr').textContent = ctr + '%';
+            document.getElementById('autopsy-cvr').textContent = cvr + '%';
+            document.getElementById('autopsy-cpa').textContent = '$' + cpa;
+            document.getElementById('autopsy-cpm').textContent = '$' + cpm;
+
+            // Grade calculation
+            let score = 0;
+            if (parseFloat(ctr) >= 0.89) score += 25;
+            else if (parseFloat(ctr) >= 0.5) score += 15;
+
+            if (parseFloat(cvr) >= 2.35) score += 25;
+            else if (parseFloat(cvr) >= 1.5) score += 15;
+
+            if (parseFloat(cpa) <= 200) score += 25;
+            else if (parseFloat(cpa) <= 350) score += 15;
+
+            if (parseFloat(cpm) <= 12) score += 25;
+            else if (parseFloat(cpm) <= 30) score += 15;
+
+            let grade, color;
+            if (score >= 90) { grade = 'A+'; color = 'var(--accent-green)'; }
+            else if (score >= 80) { grade = 'A'; color = 'var(--accent-green)'; }
+            else if (score >= 70) { grade = 'B+'; color = 'var(--accent-blue)'; }
+            else if (score >= 60) { grade = 'B'; color = 'var(--accent-blue)'; }
+            else if (score >= 50) { grade = 'C+'; color = 'var(--accent-yellow)'; }
+            else if (score >= 40) { grade = 'C'; color = 'var(--accent-yellow)'; }
+            else { grade = 'D'; color = 'var(--accent-red)'; }
+
+            document.getElementById('autopsy-health').textContent = grade;
+            document.getElementById('autopsy-health-ring').style.borderColor = color;
+
+            // Generate prescription
+            let rx = '';
+
+            if (parseFloat(cpm) > 30) {
+                rx += `<div class="p-4 bg-[var(--accent-red)]/10 rounded-lg border border-[var(--accent-red)]/30">
+                    <p class="font-bold text-[var(--accent-red)] mb-2">🚨 Critical: CPM of $${cpm}</p>
+                    <p class="text-sm text-[var(--text-secondary)]">Your CPM is ${(parseFloat(cpm)/12).toFixed(1)}x industry average. Poor targeting or creative fatigue.</p>
+                    <p class="text-sm font-medium mt-2">Rx: Narrow audience 50%, refresh creative</p>
+                </div>`;
+            }
+
+            if (parseFloat(cvr) < 2.35) {
+                rx += `<div class="p-4 bg-[var(--accent-yellow)]/10 rounded-lg border border-[var(--accent-yellow)]/30">
+                    <p class="font-bold text-[var(--accent-yellow)] mb-2">⚠️ Warning: CVR at ${cvr}%</p>
+                    <p class="text-sm text-[var(--text-secondary)]">Traffic reaching site but not converting. Landing page or offer mismatch.</p>
+                    <p class="text-sm font-medium mt-2">Rx: A/B test landing page, check message consistency</p>
+                </div>`;
+            }
+
+            if (parseFloat(ctr) >= 0.89) {
+                rx += `<div class="p-4 bg-[var(--accent-green)]/10 rounded-lg border border-[var(--accent-green)]/30">
+                    <p class="font-bold text-[var(--accent-green)] mb-2">✓ Strength: CTR at ${ctr}%</p>
+                    <p class="text-sm text-[var(--text-secondary)]">Creative is generating interest. Problem is downstream.</p>
+                    <p class="text-sm font-medium mt-2">Rx: Keep creative, fix funnel</p>
+                </div>`;
+            }
+
+            if (parseFloat(cpa) > 200) {
+                rx += `<div class="p-4 bg-[var(--accent-purple)]/10 rounded-lg border border-[var(--accent-purple)]/30">
+                    <p class="font-bold text-[var(--accent-purple)] mb-2">💰 CPA at $${cpa}</p>
+                    <p class="text-sm text-[var(--text-secondary)]">Above target. Fix CVR to bring this down automatically.</p>
+                    <p class="text-sm font-medium mt-2">Rx: Improving CVR by 1% → CPA drops ~40%</p>
+                </div>`;
+            }
+
+            document.getElementById('autopsy-rx').innerHTML = rx || `<div class="p-4 bg-[var(--accent-green)]/10 rounded-lg border border-[var(--accent-green)]/30">
+                <p class="font-bold text-[var(--accent-green)] mb-2">✓ Healthy Campaign</p>
+                <p class="text-sm text-[var(--text-secondary)]">All metrics within acceptable ranges. Focus on scaling.</p>
+            </div>`;
+
+            // Projected improvement
+            let projected = 0;
+            if (parseFloat(cpm) > 30) projected += 40;
+            if (parseFloat(cvr) < 2.35) projected += 35;
+            if (parseFloat(cpa) > 200) projected += 25;
+
+            document.getElementById('autopsy-projected').textContent = '+' + Math.min(projected, 150) + '%';
+        }
+
+        // ============ SIMULATOR 5: Core Science ============
+        function updateCoreSimulator() {
+            const B = parseInt(document.getElementById('core-slider-b').value) / 100;
+            const M = parseInt(document.getElementById('core-slider-m').value) / 100;
+            const S = parseInt(document.getElementById('core-slider-s').value) / 100;
+            const N = parseInt(document.getElementById('core-slider-n').value);
+            const L = parseInt(document.getElementById('core-slider-l').value);
+            const Theta = parseInt(document.getElementById('core-slider-theta').value) / 10;
+
+            document.getElementById('core-val-b').textContent = B.toFixed(2);
+            document.getElementById('core-val-m').textContent = M.toFixed(2);
+            document.getElementById('core-val-s').textContent = S.toFixed(2);
+            document.getElementById('core-val-n').textContent = N;
+            document.getElementById('core-val-l').textContent = L;
+            document.getElementById('core-val-theta').textContent = Theta.toFixed(1);
+
+            const numerator = B * M * S;
+            const denominator = N + L + Theta;
+            const A = denominator > 0 ? numerator / denominator : 0;
+
+            const ALPHA = 50, BETA = 0.5;
+            const P = 1 / (1 + Math.exp(-(ALPHA * A - BETA)));
+
+            document.getElementById('core-output-a').textContent = A.toFixed(5);
+            const pEl = document.getElementById('core-output-p');
+            pEl.textContent = (P * 100).toFixed(1) + '%';
+
+            if (P > 0.7) pEl.style.color = 'var(--accent-green)';
+            else if (P > 0.4) pEl.style.color = 'var(--accent-blue)';
+            else pEl.style.color = 'var(--accent-red)';
+        }
+
+        ['core-slider-b', 'core-slider-m', 'core-slider-s', 'core-slider-n', 'core-slider-l', 'core-slider-theta'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateCoreSimulator);
+        });
+
+        // Initialize all simulators
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSellerSimulator();
+            updateBuyerSimulator();
+            updateForecast();
+            runAutopsy();
+            updateCoreSimulator();
+        });
+    </script>
+</body>
+</html>
