@@ -1,0 +1,1044 @@
+<!-- Pro-Marketing Simulators - Beautified Version -->
+<!-- By Armstrong Knight & Abdullah Khan | AI Synthesis: ChatGPT, Claude, Gemini, Grok -->
+
+<style>
+/* ========== CORE THEME (matches home page) ========== */
+.ff-sims {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+    color: #f1f5f9;
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+}
+
+.ff-sims * { box-sizing: border-box; }
+
+/* Hero Section */
+.ff-sims-hero {
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+}
+
+.ff-sims-logo {
+    font-size: 80px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #8b5cf6, #d946ef, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+}
+
+.ff-sims-title {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #f1f5f9;
+}
+
+.ff-sims-tagline {
+    font-size: 20px;
+    color: #94a3b8;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.ff-sims-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.ff-sims-stat {
+    padding: 12px 24px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+}
+
+.ff-sims-stat .num {
+    font-weight: bold;
+    font-size: 24px;
+}
+.ff-sims-stat .green { color: #10b981; }
+.ff-sims-stat .purple { color: #d946ef; }
+.ff-sims-stat .orange { color: #f97316; }
+
+/* Buttons */
+.ff-btn {
+    display: inline-block;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #8b5cf6, #d946ef);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ff-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+}
+
+.ff-btn-outline {
+    background: transparent;
+    border: 2px solid #8b5cf6;
+}
+
+.ff-btn-outline:hover {
+    background: rgba(139, 92, 246, 0.1);
+}
+
+/* Section Styling */
+.ff-section {
+    padding: 60px 20px;
+    background: #0a0a0f;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ff-section-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #8b5cf6, #d946ef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+}
+
+.ff-section-subtitle {
+    color: #94a3b8;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+/* Game Cards Grid */
+.ff-games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ff-game-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.ff-game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.ff-game-card.seller::before { background: linear-gradient(90deg, #10b981, #34d399); }
+.ff-game-card.buyer::before { background: linear-gradient(90deg, #8b5cf6, #d946ef); }
+.ff-game-card.prospective::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.ff-game-card.retrospective::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.ff-game-card.core::before { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
+
+.ff-game-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.ff-game-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.ff-game-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.ff-game-icon.green { background: rgba(16, 185, 129, 0.2); }
+.ff-game-icon.purple { background: rgba(139, 92, 246, 0.2); }
+.ff-game-icon.blue { background: rgba(59, 130, 246, 0.2); }
+.ff-game-icon.yellow { background: rgba(245, 158, 11, 0.2); }
+.ff-game-icon.cyan { background: rgba(6, 182, 212, 0.2); }
+
+.ff-game-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.ff-game-pov {
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+.ff-game-pov.green { color: #10b981; }
+.ff-game-pov.purple { color: #d946ef; }
+.ff-game-pov.blue { color: #3b82f6; }
+.ff-game-pov.yellow { color: #f59e0b; }
+.ff-game-pov.cyan { color: #06b6d4; }
+
+.ff-game-desc {
+    color: #94a3b8;
+    font-size: 15px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.ff-game-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ff-game-tag {
+    padding: 6px 12px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 6px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* Tab Navigation */
+.ff-tabs {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.ff-tab {
+    padding: 16px 24px;
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.ff-tab:hover { color: #94a3b8; }
+
+.ff-tab.active {
+    color: #f1f5f9;
+    border-bottom-color: #d946ef;
+}
+
+/* Simulator Panels */
+.ff-panel {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    animation: fadeIn 0.5s ease;
+}
+
+.ff-panel.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ff-panel-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.ff-panel-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.ff-panel-badge.green { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.ff-panel-badge.purple { background: rgba(139, 92, 246, 0.2); color: #d946ef; }
+.ff-panel-badge.blue { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+.ff-panel-badge.yellow { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+.ff-panel-badge.cyan { background: rgba(6, 182, 212, 0.2); color: #06b6d4; }
+
+.ff-panel-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #f1f5f9;
+}
+
+.ff-panel-desc {
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+/* Simulator Grid */
+.ff-sim-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .ff-sim-grid { grid-template-columns: 1fr; }
+}
+
+.ff-sim-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 28px;
+}
+
+.ff-sim-box.green { border-color: rgba(16, 185, 129, 0.3); }
+.ff-sim-box.purple { border-color: rgba(139, 92, 246, 0.3); }
+.ff-sim-box.blue { border-color: rgba(59, 130, 246, 0.3); }
+.ff-sim-box.red { border-color: rgba(239, 68, 68, 0.3); }
+.ff-sim-box.cyan { border-color: rgba(6, 182, 212, 0.3); }
+
+.ff-sim-box-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ff-sim-box-title.green { color: #10b981; }
+.ff-sim-box-title.purple { color: #d946ef; }
+.ff-sim-box-title.blue { color: #3b82f6; }
+.ff-sim-box-title.red { color: #ef4444; }
+.ff-sim-box-title.cyan { color: #06b6d4; }
+
+/* Slider Styling */
+.ff-slider-group { margin-bottom: 28px; }
+
+.ff-slider-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.ff-slider-value {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+.ff-slider-value.green { color: #10b981; }
+.ff-slider-value.red { color: #ef4444; }
+
+input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.1);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.ff-slider-green::-webkit-slider-thumb { background: linear-gradient(135deg, #10b981, #34d399); box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+.ff-slider-red::-webkit-slider-thumb { background: linear-gradient(135deg, #ef4444, #f87171); box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+
+.ff-slider-hint {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 6px;
+}
+
+/* Score Display */
+.ff-score-box {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ff-score-label {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.ff-score-value {
+    font-family: 'Courier New', monospace;
+    font-size: 42px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #8b5cf6, #d946ef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ff-score-value.large { font-size: 56px; }
+
+/* Level Badge */
+.ff-level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+}
+
+/* Progress Bar */
+.ff-progress-group { margin-bottom: 18px; }
+
+.ff-progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.ff-progress-bar {
+    height: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.ff-progress-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+.ff-progress-fill.green { background: linear-gradient(90deg, #10b981, #3b82f6); }
+.ff-progress-fill.blue { background: linear-gradient(90deg, #3b82f6, #8b5cf6); }
+.ff-progress-fill.purple { background: linear-gradient(90deg, #8b5cf6, #d946ef); }
+
+/* Insight Cards */
+.ff-insight {
+    padding: 18px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border-left: 4px solid;
+    margin-bottom: 14px;
+}
+
+.ff-insight.yellow { border-color: #f59e0b; }
+.ff-insight.green { border-color: #10b981; }
+.ff-insight.purple { border-color: #d946ef; }
+
+.ff-insight-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.ff-insight-title.yellow { color: #fbbf24; }
+.ff-insight-title.green { color: #34d399; }
+.ff-insight-title.purple { color: #d946ef; }
+
+.ff-insight-text {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+/* Equation Display */
+.ff-equation-box {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 16px;
+    padding: 20px 30px;
+    display: inline-block;
+    margin: 20px 0;
+}
+
+.ff-equation {
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    color: #d946ef;
+}
+
+/* Footer */
+.ff-sims-footer {
+    background: #0a0a0f;
+    padding: 60px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.ff-sims-footer a {
+    color: #8b5cf6 !important;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.2s ease;
+}
+
+.ff-sims-footer a:hover {
+    color: #d946ef !important;
+}
+
+.ff-sims-footer p {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+/* Select Styling */
+select {
+    width: 100%;
+    padding: 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: #f1f5f9;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: rgba(139, 92, 246, 0.5);
+}
+</style>
+
+<div class="ff-sims">
+    <!-- Hero Section -->
+    <div class="ff-sims-hero">
+        <div class="ff-sims-logo">f(x)</div>
+        <h1 class="ff-sims-title">Pro-Marketing Simulators</h1>
+        <p class="ff-sims-tagline">
+            Five gamified tools that reduce 127 years of marketing science to drag-and-play.<br>
+            Master the math without the math. See your scores. Understand why. Win.
+        </p>
+
+        <div class="ff-sims-stats">
+            <div class="ff-sims-stat"><span class="num green">5</span> Simulators</div>
+            <div class="ff-sims-stat"><span class="num purple">2</span> POVs</div>
+            <div class="ff-sims-stat"><span class="num orange">0</span> Equations Required</div>
+        </div>
+    </div>
+
+    <!-- Game Selection Section -->
+    <div class="ff-section">
+        <h2 class="ff-section-title">Choose Your Game</h2>
+        <p class="ff-section-subtitle">Click a card to launch that simulator</p>
+
+        <div class="ff-games-grid">
+            <!-- Campaign Commander -->
+            <div class="ff-game-card seller" onclick="switchTab('seller')">
+                <div class="ff-game-header">
+                    <div class="ff-game-icon green">🎯</div>
+                    <div>
+                        <div class="ff-game-title">Campaign Commander</div>
+                        <div class="ff-game-pov green">SELLER POV</div>
+                    </div>
+                </div>
+                <p class="ff-game-desc">You're the marketer. Allocate budget, tune creative, target audiences. Watch your attention-capture score respond in real-time.</p>
+                <div class="ff-game-tags">
+                    <span class="ff-game-tag">Budget</span>
+                    <span class="ff-game-tag">Creative</span>
+                    <span class="ff-game-tag">Targeting</span>
+                </div>
+            </div>
+
+            <!-- Attention Journey -->
+            <div class="ff-game-card buyer" onclick="switchTab('buyer')">
+                <div class="ff-game-header">
+                    <div class="ff-game-icon purple">🧠</div>
+                    <div>
+                        <div class="ff-game-title">Attention Journey</div>
+                        <div class="ff-game-pov purple">BUYER POV</div>
+                    </div>
+                </div>
+                <p class="ff-game-desc">You're the customer. Set your mood, distractions, needs. See which marketing breaks through YOUR mental filters.</p>
+                <div class="ff-game-tags">
+                    <span class="ff-game-tag">Mood</span>
+                    <span class="ff-game-tag">Focus</span>
+                    <span class="ff-game-tag">Need</span>
+                </div>
+            </div>
+
+            <!-- Forecast Engine -->
+            <div class="ff-game-card prospective" onclick="switchTab('prospective')">
+                <div class="ff-game-header">
+                    <div class="ff-game-icon blue">🔮</div>
+                    <div>
+                        <div class="ff-game-title">Forecast Engine</div>
+                        <div class="ff-game-pov blue">PROSPECTIVE</div>
+                    </div>
+                </div>
+                <p class="ff-game-desc">Plan your campaign. Get predicted outcomes over 12 weeks. Compare scenarios. Optimize before you spend.</p>
+                <div class="ff-game-tags">
+                    <span class="ff-game-tag">Planning</span>
+                    <span class="ff-game-tag">Forecasting</span>
+                    <span class="ff-game-tag">A/B</span>
+                </div>
+            </div>
+
+            <!-- Autopsy Lab -->
+            <div class="ff-game-card retrospective" onclick="switchTab('retrospective')">
+                <div class="ff-game-header">
+                    <div class="ff-game-icon yellow">🔬</div>
+                    <div>
+                        <div class="ff-game-title">Autopsy Lab</div>
+                        <div class="ff-game-pov yellow">RETROSPECTIVE</div>
+                    </div>
+                </div>
+                <p class="ff-game-desc">Input your actual results. Diagnose what went wrong (or right). Get prescriptions for improvement.</p>
+                <div class="ff-game-tags">
+                    <span class="ff-game-tag">Analysis</span>
+                    <span class="ff-game-tag">Diagnosis</span>
+                    <span class="ff-game-tag">Rx</span>
+                </div>
+            </div>
+
+            <!-- Gating Function Lab -->
+            <div class="ff-game-card core" onclick="switchTab('core')">
+                <div class="ff-game-header">
+                    <div class="ff-game-icon cyan">⚛️</div>
+                    <div>
+                        <div class="ff-game-title">Gating Function Lab</div>
+                        <div class="ff-game-pov cyan">CORE SCIENCE</div>
+                    </div>
+                </div>
+                <p class="ff-game-desc">The raw equation. Body × Mind × Soul vs. Suppressors. For those who want to see the actual math in action.</p>
+                <div class="ff-game-tags">
+                    <span class="ff-game-tag">B·M·S</span>
+                    <span class="ff-game-tag">N+L+Θ</span>
+                    <span class="ff-game-tag">P(A)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="ff-tabs">
+        <button class="ff-tab active" data-tab="seller">🎯 Campaign Commander</button>
+        <button class="ff-tab" data-tab="buyer">🧠 Attention Journey</button>
+        <button class="ff-tab" data-tab="prospective">🔮 Forecast Engine</button>
+        <button class="ff-tab" data-tab="retrospective">🔬 Autopsy Lab</button>
+        <button class="ff-tab" data-tab="core">⚛️ Core Science</button>
+    </div>
+
+    <!-- PANEL 1: Campaign Commander -->
+    <div class="ff-panel active" id="panel-seller">
+        <div class="ff-panel-header">
+            <span class="ff-panel-badge green">SELLER POV</span>
+            <h2 class="ff-panel-title">Campaign Commander</h2>
+            <p class="ff-panel-desc">You control the marketing levers. Optimize your campaign to maximize attention capture and conversion probability.</p>
+        </div>
+
+        <div class="ff-sim-grid">
+            <div class="ff-sim-box green">
+                <h3 class="ff-sim-box-title green">🎮 Your Controls</h3>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>Monthly Budget</span>
+                        <span class="ff-slider-value green">$<span id="s1-budget-val">10,000</span></span>
+                    </div>
+                    <input type="range" min="1000" max="100000" value="10000" step="1000" id="s1-budget" class="ff-slider-green">
+                </div>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>Creative Quality</span>
+                        <span class="ff-slider-value green"><span id="s1-creative-val">60</span>%</span>
+                    </div>
+                    <input type="range" min="10" max="100" value="60" id="s1-creative" class="ff-slider-green">
+                    <p class="ff-slider-hint">Maps to Body (B) in equation</p>
+                </div>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>Targeting Precision</span>
+                        <span class="ff-slider-value green"><span id="s1-targeting-val">50</span>%</span>
+                    </div>
+                    <input type="range" min="10" max="100" value="50" id="s1-targeting" class="ff-slider-green">
+                    <p class="ff-slider-hint">Maps to Mind (M) in equation</p>
+                </div>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>Brand Authenticity</span>
+                        <span class="ff-slider-value green"><span id="s1-authenticity-val">40</span>%</span>
+                    </div>
+                    <input type="range" min="10" max="100" value="40" id="s1-authenticity" class="ff-slider-green">
+                    <p class="ff-slider-hint">Maps to Soul (S) — THE MULTIPLIER</p>
+                </div>
+
+                <div class="ff-slider-group">
+                    <label style="font-size: 14px; display: block; margin-bottom: 10px;">Primary Channel</label>
+                    <select id="s1-channel">
+                        <option value="28">TikTok (Noise: 28)</option>
+                        <option value="22">Instagram (Noise: 22)</option>
+                        <option value="18">Facebook (Noise: 18)</option>
+                        <option value="12" selected>YouTube (Noise: 12)</option>
+                        <option value="8">LinkedIn (Noise: 8)</option>
+                        <option value="4">Email (Noise: 4)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ff-sim-box purple">
+                <h3 style="text-align: center; margin-bottom: 24px; color: #f1f5f9;">Your Campaign Score</h3>
+
+                <div class="ff-score-box">
+                    <div class="ff-score-value large" id="s1-score">42</div>
+                    <div class="ff-score-label">ATTENTION CAPTURE SCORE</div>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 28px;">
+                    <span class="ff-level-badge" id="s1-level">🥉 BRONZE MARKETER</span>
+                </div>
+
+                <div class="ff-progress-group">
+                    <div class="ff-progress-header">
+                        <span>Signal Strength</span>
+                        <span style="font-family: monospace;" id="s1-signal">0.12</span>
+                    </div>
+                    <div class="ff-progress-bar">
+                        <div class="ff-progress-fill green" id="s1-signal-bar" style="width: 12%;"></div>
+                    </div>
+                </div>
+
+                <div class="ff-progress-group">
+                    <div class="ff-progress-header">
+                        <span>P(Awareness)</span>
+                        <span style="font-family: monospace;" id="s1-awareness">34%</span>
+                    </div>
+                    <div class="ff-progress-bar">
+                        <div class="ff-progress-fill blue" id="s1-awareness-bar" style="width: 34%;"></div>
+                    </div>
+                </div>
+
+                <div class="ff-progress-group">
+                    <div class="ff-progress-header">
+                        <span>Est. Conversions</span>
+                        <span style="font-family: monospace;" id="s1-conversions">127</span>
+                    </div>
+                    <div class="ff-progress-bar">
+                        <div class="ff-progress-fill purple" id="s1-conversions-bar" style="width: 25%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ff-sim-box blue">
+                <h3 class="ff-sim-box-title blue">💡 AI Insights</h3>
+                <div id="s1-insights">
+                    <div class="ff-insight yellow">
+                        <div class="ff-insight-title yellow">⚠️ Weak Link: Soul</div>
+                        <div class="ff-insight-text">Your brand authenticity is bottlenecking performance. Increase from 40% to 70% to unlock 2.3x higher awareness.</div>
+                    </div>
+                    <div class="ff-insight green">
+                        <div class="ff-insight-title green">✓ Strong: Creative</div>
+                        <div class="ff-insight-text">Creative quality at 60% is above average. Consider video >15 seconds for 1.5s encoding threshold.</div>
+                    </div>
+                    <div class="ff-insight purple">
+                        <div class="ff-insight-title purple">🎯 Recommendation</div>
+                        <div class="ff-insight-text">Switch to Email (Noise: 4) to reduce denominator by 8 points. Same budget, 2x breakthrough.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 5: Core Science -->
+    <div class="ff-panel" id="panel-core">
+        <div class="ff-panel-header">
+            <span class="ff-panel-badge cyan">CORE SCIENCE</span>
+            <h2 class="ff-panel-title">Gating Function Lab</h2>
+            <p class="ff-panel-desc">The raw equation. For those who want to see the actual mathematics in action.</p>
+            <div class="ff-equation-box">
+                <span class="ff-equation">𝒜 = (B · M · S) / (N + L + Θ)</span>
+            </div>
+        </div>
+
+        <div class="ff-sim-grid">
+            <div class="ff-sim-box green">
+                <h3 class="ff-sim-box-title green">SIGNAL DRIVERS</h3>
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 24px;">Multiplicative. If ANY hits zero, signal collapses.</p>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>B (Body)</span>
+                        <span class="ff-slider-value green" id="core-val-b">0.34</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="34" id="core-slider-b" class="ff-slider-green">
+                    <p class="ff-slider-hint">Sensory strength × Viewability × Duration</p>
+                </div>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>M (Mind)</span>
+                        <span class="ff-slider-value green" id="core-val-m">0.50</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" id="core-slider-m" class="ff-slider-green">
+                    <p class="ff-slider-hint">Intent match × Prediction error</p>
+                </div>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>S (Soul)</span>
+                        <span class="ff-slider-value green" id="core-val-s">0.40</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="40" id="core-slider-s" class="ff-slider-green">
+                    <p class="ff-slider-hint">Identity congruence × Story match</p>
+                </div>
+            </div>
+
+            <div class="ff-sim-box cyan">
+                <div class="ff-score-box">
+                    <div class="ff-score-label">INSTANTANEOUS ACTIVATION (𝒜)</div>
+                    <div class="ff-score-value" id="core-output-a">0.00304</div>
+                </div>
+
+                <div class="ff-score-box" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(139, 92, 246, 0.1));">
+                    <div class="ff-score-label">P(AWARENESS) VIA SIGMOID</div>
+                    <div class="ff-score-value large" id="core-output-p">41.0%</div>
+                </div>
+
+                <p style="text-align: center; font-size: 12px; color: #64748b; margin-top: 20px;">α=50, β=0.5</p>
+            </div>
+
+            <div class="ff-sim-box red">
+                <h3 class="ff-sim-box-title red">SUPPRESSORS</h3>
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 24px;">Additive. Compete for cognitive bandwidth.</p>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>N (Noise)</span>
+                        <span class="ff-slider-value red" id="core-val-n">20</span>
+                    </div>
+                    <input type="range" min="1" max="100" value="20" id="core-slider-n" class="ff-slider-red">
+                    <p class="ff-slider-hint">TikTok≈28 | YouTube≈12 | TV≈4</p>
+                </div>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>L (Load)</span>
+                        <span class="ff-slider-value red" id="core-val-l">2</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="2" id="core-slider-l" class="ff-slider-red">
+                    <p class="ff-slider-hint">Cowan's 4±1 chunks</p>
+                </div>
+
+                <div class="ff-slider-group">
+                    <div class="ff-slider-label">
+                        <span>Θ (Threshold)</span>
+                        <span class="ff-slider-value red" id="core-val-theta">0.1</span>
+                    </div>
+                    <input type="range" min="1" max="20" value="1" id="core-slider-theta" class="ff-slider-red">
+                    <p class="ff-slider-hint">Personal habituation barrier</p>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 40px; color: #94a3b8; font-size: 15px;">
+            <span style="color: #10b981;">↑</span> Push Soul to 0.80 → watch P(Awareness) explode.
+            <span style="color: #ef4444;">↑</span> Crank Noise to 50 → watch the denominator win.
+        </p>
+    </div>
+
+    <!-- Placeholder Panels -->
+    <div class="ff-panel" id="panel-buyer">
+        <div class="ff-panel-header">
+            <span class="ff-panel-badge purple">BUYER POV</span>
+            <h2 class="ff-panel-title">Attention Journey</h2>
+            <p class="ff-panel-desc">You are the customer. Set your mental state. See what marketing breaks through YOUR cognitive filters.</p>
+        </div>
+        <p style="text-align: center; color: #64748b; padding: 60px 20px; font-size: 16px;">
+            Full buyer simulator coming soon. Try <strong style="color: #10b981;">Campaign Commander</strong> or <strong style="color: #06b6d4;">Core Science</strong> above!
+        </p>
+    </div>
+
+    <div class="ff-panel" id="panel-prospective">
+        <div class="ff-panel-header">
+            <span class="ff-panel-badge blue">PROSPECTIVE</span>
+            <h2 class="ff-panel-title">Forecast Engine</h2>
+            <p class="ff-panel-desc">Plan your campaign. Get predicted outcomes over 12 weeks. Compare scenarios before spending.</p>
+        </div>
+        <p style="text-align: center; color: #64748b; padding: 60px 20px; font-size: 16px;">
+            Full forecast engine coming soon. Try <strong style="color: #10b981;">Campaign Commander</strong> or <strong style="color: #06b6d4;">Core Science</strong> above!
+        </p>
+    </div>
+
+    <div class="ff-panel" id="panel-retrospective">
+        <div class="ff-panel-header">
+            <span class="ff-panel-badge yellow">RETROSPECTIVE</span>
+            <h2 class="ff-panel-title">Autopsy Lab</h2>
+            <p class="ff-panel-desc">Input your actual results. Diagnose what went wrong (or right). Get prescriptions for improvement.</p>
+        </div>
+        <p style="text-align: center; color: #64748b; padding: 60px 20px; font-size: 16px;">
+            Full autopsy lab coming soon. Try <strong style="color: #10b981;">Campaign Commander</strong> or <strong style="color: #06b6d4;">Core Science</strong> above!
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="ff-sims-footer">
+        <div>
+            <a href="/">Home</a>
+            <a href="/simulator">Simulators</a>
+            <a href="https://github.com/FunnelFunction/0.0_git_funnelfunction_marketing_Principals" target="_blank">GitHub</a>
+        </div>
+        <p>© 2025 Funnel Function Institute | Armstrong Knight & Abdullah Khan</p>
+        <p style="margin-top: 10px;">AI Synthesis: ChatGPT, Claude, Gemini, Grok</p>
+    </div>
+</div>
+
+<script>
+// Tab switching
+function switchTab(tabName) {
+    document.querySelectorAll('.ff-tab').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+    document.querySelectorAll('.ff-panel').forEach(function(panel) {
+        panel.classList.toggle('active', panel.id === 'panel-' + tabName);
+    });
+}
+
+document.querySelectorAll('.ff-tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        switchTab(this.dataset.tab);
+    });
+});
+
+// Campaign Commander Logic
+function updateCampaign() {
+    var budget = parseInt(document.getElementById('s1-budget').value);
+    var creative = parseInt(document.getElementById('s1-creative').value) / 100;
+    var targeting = parseInt(document.getElementById('s1-targeting').value) / 100;
+    var authenticity = parseInt(document.getElementById('s1-authenticity').value) / 100;
+    var noise = parseInt(document.getElementById('s1-channel').value);
+
+    document.getElementById('s1-budget-val').textContent = budget.toLocaleString();
+    document.getElementById('s1-creative-val').textContent = Math.round(creative * 100);
+    document.getElementById('s1-targeting-val').textContent = Math.round(targeting * 100);
+    document.getElementById('s1-authenticity-val').textContent = Math.round(authenticity * 100);
+
+    var signal = creative * targeting * authenticity;
+    var denominator = noise + 2 + 0.1;
+    var A = signal / denominator;
+    var P = 1 / (1 + Math.exp(-(50 * A - 0.5)));
+    var score = Math.round(P * 100);
+
+    var reach = budget * 20;
+    var conversions = Math.round(reach * P * 0.02);
+
+    document.getElementById('s1-signal').textContent = signal.toFixed(3);
+    document.getElementById('s1-signal-bar').style.width = (signal * 100) + '%';
+    document.getElementById('s1-awareness').textContent = (P * 100).toFixed(1) + '%';
+    document.getElementById('s1-awareness-bar').style.width = (P * 100) + '%';
+    document.getElementById('s1-conversions').textContent = conversions.toLocaleString();
+    document.getElementById('s1-conversions-bar').style.width = Math.min(conversions / 5, 100) + '%';
+    document.getElementById('s1-score').textContent = score;
+
+    var levelEl = document.getElementById('s1-level');
+    if (score >= 80) {
+        levelEl.innerHTML = '🏆 LEGENDARY MARKETER';
+    } else if (score >= 60) {
+        levelEl.innerHTML = '🥇 GOLD MARKETER';
+    } else if (score >= 40) {
+        levelEl.innerHTML = '🥈 SILVER MARKETER';
+    } else {
+        levelEl.innerHTML = '🥉 BRONZE MARKETER';
+    }
+}
+
+['s1-budget', 's1-creative', 's1-targeting', 's1-authenticity', 's1-channel'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+        el.addEventListener('input', updateCampaign);
+        el.addEventListener('change', updateCampaign);
+    }
+});
+
+// Core Science Logic
+function updateCore() {
+    var B = parseInt(document.getElementById('core-slider-b').value) / 100;
+    var M = parseInt(document.getElementById('core-slider-m').value) / 100;
+    var S = parseInt(document.getElementById('core-slider-s').value) / 100;
+    var N = parseInt(document.getElementById('core-slider-n').value);
+    var L = parseInt(document.getElementById('core-slider-l').value);
+    var Theta = parseInt(document.getElementById('core-slider-theta').value) / 10;
+
+    document.getElementById('core-val-b').textContent = B.toFixed(2);
+    document.getElementById('core-val-m').textContent = M.toFixed(2);
+    document.getElementById('core-val-s').textContent = S.toFixed(2);
+    document.getElementById('core-val-n').textContent = N;
+    document.getElementById('core-val-l').textContent = L;
+    document.getElementById('core-val-theta').textContent = Theta.toFixed(1);
+
+    var A = (B * M * S) / (N + L + Theta);
+    var P = 1 / (1 + Math.exp(-(50 * A - 0.5)));
+
+    document.getElementById('core-output-a').textContent = A.toFixed(5);
+    document.getElementById('core-output-p').textContent = (P * 100).toFixed(1) + '%';
+}
+
+['core-slider-b', 'core-slider-m', 'core-slider-s', 'core-slider-n', 'core-slider-l', 'core-slider-theta'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateCore);
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    updateCampaign();
+    updateCore();
+});
+
+updateCampaign();
+updateCore();
+</script>
