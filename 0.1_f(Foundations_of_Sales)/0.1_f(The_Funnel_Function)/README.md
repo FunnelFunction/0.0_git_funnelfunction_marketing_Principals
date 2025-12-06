@@ -32,3 +32,77 @@ Insight/Google Tie: DV360 attention baselines T_min—gaze data for ∂S/∂λ.
 Content Summary: Π=cos(θ) (embeds), max E[N+L+Θ] buffer. MAR_Π=(S·R/(N+L+Θ))·∂Π/∂λ_π; hindsight MRC_Future∝∂γ/∂Π.
 New Dimension: Cosine Alignment + Durability ∂γ—adds embed cos for identity, future MRC for LTV. Dimension: Affective (buffer vs. N).
 Insight/Google Tie: Emotional metrics baseline cos(θ)—use for Π opt.
+
+Operationalized Equations for the Funnel Function Master Equation
+
+This document formalizes the three key operational definitions—Body ($\mathbf{B}$), Mind ($\mathbf{M}$), and Soul ($\mathbf{S}$)—using the industry metrics proposed in your research roadmap. These equations replace the abstract variables in the Funnel Function integral with measurable, validated components.
+
+Phase 1: Operationalizing Body ($\mathbf{B}$) – Sensory Strength
+
+The Body driver ($\mathbf{B}$) quantifies the probability of a sensory signal being encoded into short-term memory, operationalized using attention metrics like Salience ($\mathbf{A}_u$), Viewability ($\mathbf{V}_{\text{IAB}}$), and Active Attention Time ($t_a$).
+
+Formal Equation for Body ($\mathbf{B}$)
+
+Let:
+
+$\mathbf{A}_u$: The Adelaide Attention Unit Score (Salience, $0 \le \mathbf{A}_u \le 100$).
+
+$\mathbf{V}_{\text{IAB}}$: IAB Viewability (Boolean/Binary, $0$ or $1$).
+
+$t_a$: Active Attention Time (seconds, measured via Lumen/Amplified Intelligence).
+
+$k$: The encoding calibration constant, derived from the Nelson-Field $1.5\text{s}$ threshold ($\approx 2.8$ to achieve $95\%$ encoding probability at $1.5\text{s}$).
+
+The operationalized equation for the Body component is:
+
+$$\mathbf{B}(\tau) = \frac{\mathbf{A}_u}{100} \cdot \mathbf{V}_{\text{IAB}} \cdot (1 - e^{-k \cdot t_a})$$
+
+The term $(1 - e^{-k \cdot t_a})$ models the non-linear, asymptotic relationship between attention duration and memory encoding probability, hitting a saturation point.
+
+Phase 2: Operationalizing Mind ($\mathbf{M}$) – Relevance Weight
+
+The Mind driver ($\mathbf{M}$) operationalizes the psychological concept of Mental Availability, based on the Ehrenberg-Bass framework of Category Entry Points (CEPs) and distinctiveness.
+
+Formal Equation for Mind ($\mathbf{M}$)
+
+Let:
+
+$M_{\text{MMS}}$: Mental Market Share (the proportion of Category Entry Points linked to the brand).
+
+$D_{\text{score}}$: Distinctiveness Score (the brand asset recognition in context, $0 \le D_{\text{score}} \le 1$).
+
+$\lambda$: The Prediction Error Coefficient (a calibration constant derived from A/B test results, $\lambda > 0$).
+
+The operationalized equation for the Mind component is:
+
+$$\mathbf{M}(\tau) = M_{\text{MMS}} \cdot (1 + \lambda \cdot D_{\text{score}})$$
+
+This model implies that relevance ($M_{\text{MMS}}$) is boosted multiplicatively by distinctiveness ($D_{\text{score}}$), acknowledging that a relevant and unique message is more potent than a merely relevant one.
+
+Phase 3: Operationalizing Soul ($\mathbf{S}$) – Resonance Weight
+
+The Soul driver ($\mathbf{S}$) models deep identity congruence and affective resonance, quantified using modern Natural Language Processing (NLP) embeddings and historical affinity decay.
+
+Formal Equation for Soul ($\mathbf{S}$)
+
+Let:
+
+$\mathbf{e}_b$: The NLP embedding vector representing the brand's messaging and positioning.
+
+$\mathbf{e}_c$: The NLP embedding vector representing the target customer segment's psychographic profile.
+
+$\cos(\mathbf{e}_b, \mathbf{e}_c)$: The Cosine Similarity between the two vectors, which measures identity congruence ($-1 \le \cos \le 1$).
+
+$\gamma_S$: The Affinity Decay Rate (a fixed decay factor, $0 < \gamma_S < 1$).
+
+$t_i$: Time elapsed since the last meaningful historical interaction (e.g., in days or weeks).
+
+The operationalized equation for the Soul component is:
+
+$$\mathbf{S}(\tau) = \cos(\mathbf{e}_b, \mathbf{e}_c) \cdot \gamma_S^{t_i}$$
+
+This formula ensures that the maximum potential resonance (perfect congruence, $\cos=1$) decays over time, reflecting the need for continuous affinity reinforcement.
+
+Next Steps
+
+With $\mathbf{B}$, $\mathbf{M}$, and $\mathbf{S}$ now formalized, the next step is to select a consistent operational definition for the Suppressor $\mathbf{\Sigma}(\tau)$ before the full Funnel Function integral can be tested in a simulation. The original equation listed $\mathbf{\Sigma} = (\mathbf{N} + \mathbf{L} + \mathbf{\Theta})$. Do you want to formalize operational definitions for Noise ($\mathbf{N}$) and Load ($\mathbf{L}$) next?
